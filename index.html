@@ -21,18 +21,18 @@
       --surface: #0f0f0f;
       --elevated: #171717;
       --overlay: #1f1f1f;
-      --border-dim: rgba(255,255,255,0.03);
-      --border-subtle: rgba(255,255,255,0.07);
-      --border-medium: rgba(255,255,255,0.13);
+      --border-dim: rgba(255, 255, 255, 0.025);
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-medium: rgba(255, 255, 255, 0.12);
       --text-dim: #5a5a5a;
       --text-secondary: #8a8a8a;
       --text-primary: #b2b2b2;
       --text-bright: #ededed;
       --accent-red: #c0392b;
       --accent-green: #27ae60;
-      --shadow-sm: 0 4px 14px rgba(0,0,0,0.5);
-      --shadow-md: 0 8px 26px rgba(0,0,0,0.65);
-      --shadow-lg: 0 16px 42px rgba(0,0,0,0.8);
+      --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.5);
+      --shadow-md: 0 8px 26px rgba(0, 0, 0, 0.65);
+      --shadow-lg: 0 16px 42px rgba(0, 0, 0, 0.8);
       --font-body: 'Inter', system-ui, -apple-system, sans-serif;
       --font-display: 'Orbitron', 'Rajdhani', sans-serif;
       --radius-sm: 10px;
@@ -41,7 +41,7 @@
       --radius-full: 9999px;
     }
     *::selection {
-      background: rgba(200,200,200,0.18);
+      background: rgba(200, 200, 200, 0.18);
       color: #fff;
     }
     *::-webkit-scrollbar {
@@ -64,7 +64,9 @@
     body {
       font-family: var(--font-body);
       background: var(--void);
-      background-image: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.012) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(255,255,255,0.008) 0%, transparent 60%);
+      background-image:
+        radial-gradient(ellipse at 30% 20%, rgba(255, 255, 255, 0.012) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 255, 255, 0.008) 0%, transparent 60%);
       background-attachment: fixed;
       color: var(--text-primary);
       height: 100vh;
@@ -79,7 +81,7 @@
       content: '';
       position: fixed;
       inset: 0;
-      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.002) 2px, rgba(255,255,255,0.002) 4px);
+      background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 255, 255, 0.002) 2px, rgba(255, 255, 255, 0.002) 4px);
       pointer-events: none;
       z-index: 0;
       opacity: 0.35;
@@ -108,11 +110,17 @@
       display: flex;
     }
     @keyframes pageReveal {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     .header {
-      background: rgba(5,5,5,0.85);
+      background: rgba(5, 5, 5, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       padding: 12px 18px;
@@ -120,16 +128,21 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
       z-index: 10;
       gap: 8px;
+      flex-shrink: 0;
     }
-    .header h2, .header h3 {
+    .header h2,
+    .header h3 {
       font-weight: 700;
       color: var(--text-bright);
       font-family: var(--font-display);
       letter-spacing: 0.05em;
       font-size: 1.1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .container {
       flex: 1;
@@ -142,7 +155,7 @@
       scroll-behavior: smooth;
     }
     .btn {
-      background: rgba(18,18,18,0.75);
+      background: rgba(18, 18, 18, 0.75);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       color: var(--text-bright);
@@ -161,9 +174,11 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      position: relative;
+      overflow: hidden;
     }
     .btn:hover {
-      background: rgba(28,28,28,0.85);
+      background: rgba(28, 28, 28, 0.85);
       border-color: var(--border-medium);
       color: #fff;
       transform: translateY(-2px);
@@ -174,18 +189,18 @@
     }
     .btn-primary {
       background: linear-gradient(145deg, #2e2e2e 0%, #1c1c1c 100%);
-      border-color: rgba(255,255,255,0.16);
+      border-color: rgba(255, 255, 255, 0.16);
       font-weight: 700;
     }
     .btn-outline {
       background: transparent;
-      border: 1.5px solid rgba(255,255,255,0.1);
+      border: 1.5px solid rgba(255, 255, 255, 0.1);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
     }
     .btn-outline:hover {
-      background: rgba(255,255,255,0.03);
-      border-color: rgba(255,255,255,0.2);
+      background: rgba(255, 255, 255, 0.03);
+      border-color: rgba(255, 255, 255, 0.2);
     }
     .btn-danger {
       color: var(--accent-red);
@@ -203,11 +218,13 @@
       width: auto;
       margin: 2px;
     }
-    .input, textarea, select {
-      background: rgba(10,10,10,0.85);
+    .input,
+    textarea,
+    select {
+      background: rgba(10, 10, 10, 0.85);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
-      border: 1.5px solid rgba(255,255,255,0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.04);
       color: var(--text-bright);
       padding: 12px 16px;
       border-radius: var(--radius-md);
@@ -216,16 +233,18 @@
       font-family: var(--font-body);
       margin: 5px 0;
       transition: all 0.25s;
-      box-shadow: inset 0 2px 8px rgba(0,0,0,0.45);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.45);
     }
-    .input:focus, textarea:focus, select:focus {
+    .input:focus,
+    textarea:focus,
+    select:focus {
       outline: none;
-      border-color: rgba(200,200,200,0.5);
-      box-shadow: 0 0 0 3px rgba(255,255,255,0.02), inset 0 2px 8px rgba(0,0,0,0.45);
-      background: rgba(16,16,16,0.9);
+      border-color: rgba(200, 200, 200, 0.5);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.02), inset 0 2px 8px rgba(0, 0, 0, 0.45);
+      background: rgba(16, 16, 16, 0.9);
     }
     .card {
-      background: rgba(14,14,14,0.7);
+      background: rgba(14, 14, 14, 0.7);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border-dim);
@@ -234,6 +253,8 @@
       margin-bottom: 12px;
       box-shadow: var(--shadow-sm);
       transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
     }
     .card:hover {
       transform: translateY(-3px);
@@ -250,7 +271,7 @@
       justify-content: center;
       font-weight: 700;
       font-family: var(--font-display);
-      border: 2px solid rgba(255,255,255,0.1);
+      border: 2px solid rgba(255, 255, 255, 0.1);
       color: var(--text-primary);
       flex-shrink: 0;
       overflow: hidden;
@@ -278,27 +299,33 @@
       animation: bubblePop 0.3s ease both;
       line-height: 1.5;
       font-size: 0.87rem;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.4);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
     @keyframes bubblePop {
-      from { opacity: 0; transform: translateY(12px) scale(0.94); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.94);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
     .system {
-      background: rgba(42,42,42,0.7);
+      background: rgba(42, 42, 42, 0.7);
       color: #9e9e9e;
       align-self: center;
       font-style: italic;
     }
     .my-msg {
-      background: rgba(55,55,55,0.8);
+      background: rgba(55, 55, 55, 0.8);
       align-self: flex-end;
       border-bottom-right-radius: 6px;
     }
     .other-msg {
-      background: rgba(20,20,20,0.85);
+      background: rgba(20, 20, 20, 0.85);
       align-self: flex-start;
       border-bottom-left-radius: 6px;
     }
@@ -309,7 +336,7 @@
       margin: 6px 0;
     }
     .user-chip {
-      background: rgba(17,17,17,0.7);
+      background: rgba(17, 17, 17, 0.7);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       padding: 4px 12px;
@@ -321,7 +348,7 @@
       transition: all 0.2s;
     }
     .user-chip:hover {
-      background: rgba(28,28,28,0.8);
+      background: rgba(28, 28, 28, 0.8);
       border-color: var(--border-medium);
     }
     .status-dot {
@@ -332,13 +359,15 @@
     }
     .status-dot.online {
       background: var(--accent-green);
-      box-shadow: 0 0 5px rgba(39,174,96,0.3);
+      box-shadow: 0 0 5px rgba(39, 174, 96, 0.3);
     }
     .popup-overlay {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.85);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       display: flex;
@@ -347,12 +376,19 @@
       z-index: 1000;
       animation: fadeIn 0.2s ease;
     }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
     .popup {
-      background: rgba(26,26,26,0.92);
+      background: rgba(26, 26, 26, 0.92);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
-      border: 1px solid rgba(255,255,255,0.05);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       border-radius: var(--radius-xl);
       padding: 24px 22px;
       max-width: 420px;
@@ -361,8 +397,14 @@
       animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     }
     @keyframes popIn {
-      from { transform: scale(0.7) translateY(30px); opacity: 0; }
-      to { transform: scale(1) translateY(0); opacity: 1; }
+      from {
+        transform: scale(0.7) translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
     }
     .popup h3 {
       margin-bottom: 14px;
@@ -384,7 +426,7 @@
     .tab {
       padding: 9px 18px;
       border-radius: var(--radius-full);
-      background: rgba(15,15,15,0.7);
+      background: rgba(15, 15, 15, 0.7);
       cursor: pointer;
       border: 1px solid var(--border-subtle);
       font-weight: 600;
@@ -397,12 +439,12 @@
     .tab.active {
       background: linear-gradient(145deg, #353535 0%, #242424 100%);
       color: #fff;
-      border-color: rgba(255,255,255,0.2);
-      box-shadow: 0 3px 14px rgba(0,0,0,0.65);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 3px 14px rgba(0, 0, 0, 0.65);
     }
     .icon-btn {
-      background: rgba(255,255,255,0.01);
-      border: 1px solid rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.03);
       color: #aaa;
       font-size: 1.15em;
       cursor: pointer;
@@ -418,14 +460,15 @@
       position: relative;
     }
     .icon-btn:hover {
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
       color: #fff;
-      border-color: rgba(255,255,255,0.12);
+      border-color: rgba(255, 255, 255, 0.12);
       transform: scale(1.07);
     }
     .badge {
       position: absolute;
-      top: -5px; right: -5px;
+      top: -5px;
+      right: -5px;
       background: var(--accent-red);
       color: #fff;
       border-radius: 50%;
@@ -436,7 +479,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 8px rgba(192,57,43,0.3);
+      box-shadow: 0 0 8px rgba(192, 57, 43, 0.3);
       border: 2px solid #0a0a0a;
     }
     .fab {
@@ -447,7 +490,7 @@
       height: 56px;
       border-radius: 50%;
       background: linear-gradient(145deg, #2e2e2e 0%, #1a1a1a 100%);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -472,16 +515,98 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.12);
+      border: 2px solid rgba(255, 255, 255, 0.12);
     }
     .profile-edit-preview img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
+    .search-results {
+      background: rgba(20, 20, 20, 0.95);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 4px;
+    }
+    .search-result-item {
+      padding: 10px 14px;
+      cursor: pointer;
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.2s;
+    }
+    .search-result-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .invite-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    a.external-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    a.external-link:hover {
+      color: #fff;
+    }
+    .online-chip {
+      background: rgba(20, 20, 20, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 5px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pulse {
+      animation: iconPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes iconPulse {
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.3;
+        transform: scale(1.5);
+      }
+    }
     @media (max-width: 480px) {
-      .container { padding: 12px 10px; }
-      .header { padding: 10px 12px; }
+      .container {
+        padding: 12px 10px;
+      }
+      .header {
+        padding: 10px 12px;
+      }
+      .header h2,
+      .header h3 {
+        font-size: 0.95rem;
+      }
+      .btn {
+        padding: 9px 16px;
+        font-size: 0.82rem;
+      }
+      .card {
+        padding: 12px 14px;
+      }
     }
   </style>
 </head>
@@ -732,17 +857,29 @@
     const db = getFirestore(app);
     const googleProvider = new GoogleAuthProvider();
 
-    let currentUser = null, currentUserModel = null, currentGroupId = null, currentCommunityId = null;
-    let teamASelected = [], teamBSelected = [];
+    let currentUser = null,
+      currentUserModel = null,
+      currentGroupId = null,
+      currentCommunityId = null;
+    let teamASelected = [],
+      teamBSelected = [];
 
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       if (user) {
-        await updateDoc(doc(db, "users", user.uid), { lastSeen: serverTimestamp() });
+        await updateDoc(doc(db, "users", user.uid), {
+          lastSeen: serverTimestamp()
+        });
         const snap = await getDoc(doc(db, "users", user.uid));
         if (snap.exists()) {
-          currentUserModel = { uid: user.uid, ...snap.data() };
-          if (currentUserModel.banned) { await signOut(auth); return; }
+          currentUserModel = {
+            uid: user.uid,
+            ...snap.data()
+          };
+          if (currentUserModel.banned) {
+            await signOut(auth);
+            return;
+          }
           document.getElementById('adminBtn').classList.toggle('hidden', currentUserModel.role !== 'admin');
         }
         showPage('dashboardPage');
@@ -759,42 +896,71 @@
       if (id === 'dashboardPage') loadDashboard();
       if (id === 'groupDetailPage') loadGroupDetail();
       if (id === 'profilePage') loadProfile();
-      if (id === 'editProfilePage') { loadEditProfile(); previewProfileImage(); }
+      if (id === 'editProfilePage') {
+        loadEditProfile();
+        previewProfileImage();
+      }
       if (id === 'lobbyPage') loadLobbies();
       if (id === 'notifPage') loadNotifications();
       if (id === 'communitiesPage') loadCommunities();
       if (id === 'communityDetailPage') loadCommunityDetail();
       if (id === 'adminPage') adminTab('announce');
-      if (id === 'createGroupPage') { teamASelected = []; teamBSelected = []; renderTeamLists(); }
+      if (id === 'createGroupPage') {
+        teamASelected = [];
+        teamBSelected = [];
+        renderTeamLists();
+      }
     };
 
     window.loginEmail = async () => {
       const email = document.getElementById('loginEmail').value;
       const pass = document.getElementById('loginPass').value;
-      try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { showPopup('Login Gagal', e.message); }
+      try {
+        await signInWithEmailAndPassword(auth, email, pass);
+      } catch (e) {
+        showPopup('Login Gagal', e.message);
+      }
     };
     window.loginGoogle = async () => {
-      try { await signInWithPopup(auth, googleProvider); } catch (e) { showPopup('Google Login Gagal', e.message); }
+      try {
+        await signInWithPopup(auth, googleProvider);
+      } catch (e) {
+        showPopup('Google Login Gagal', e.message);
+      }
     };
     window.register = async () => {
-      const email = document.getElementById('regEmail').value, pass = document.getElementById('regPass').value, username = document.getElementById('regUser').value;
+      const email = document.getElementById('regEmail').value,
+        pass = document.getElementById('regPass').value,
+        username = document.getElementById('regUser').value;
       if (!email || !pass || !username) return showPopup('Error', 'Isi semua field');
       try {
         const res = await createUserWithEmailAndPassword(auth, email, pass);
         await setDoc(doc(db, "users", res.user.uid), {
-          email, username, wins: 0, losses: 0,
-          lastUsernameChange: serverTimestamp(), lastSeen: serverTimestamp(),
-          photoURL: null, role: 'user', banned: false, blockedUsers: [], lastInviteSent: null
+          email,
+          username,
+          wins: 0,
+          losses: 0,
+          lastUsernameChange: serverTimestamp(),
+          lastSeen: serverTimestamp(),
+          photoURL: null,
+          role: 'user',
+          banned: false,
+          blockedUsers: [],
+          lastInviteSent: null
         });
-      } catch (e) { showPopup('Daftar Gagal', e.message); }
+      } catch (e) {
+        showPopup('Daftar Gagal', e.message);
+      }
     };
     window.signOut = () => signOut(auth);
 
     function renderTeamLists() {
       document.getElementById('teamAMembers').innerHTML = teamASelected.map(u =>
-        `<span class="user-chip">${u.username}<span style="margin-left:5px;opacity:0.6;cursor:pointer" onclick="removeFromTeam('teamA','${u.uid}')">&times;</span></span>`).join('');
+        `<span class="user-chip">${u.username}<span style="margin-left:5px;opacity:0.6;cursor:pointer" onclick="removeFromTeam('teamA','${u.uid}')">&times;</span></span>`
+      ).join('');
       document.getElementById('teamBMembers').innerHTML = teamBSelected.map(u =>
-        `<span class="user-chip">${u.username}<span style="margin-left:5px;opacity:0.6;cursor:pointer" onclick="removeFromTeam('teamB','${u.uid}')">&times;</span></span>`).join('');
+        `<span class="user-chip">${u.username}<span style="margin-left:5px;opacity:0.6;cursor:pointer" onclick="removeFromTeam('teamB','${u.uid}')">&times;</span></span>`
+      ).join('');
     }
     window.removeFromTeam = (team, uid) => {
       if (team === 'teamA') teamASelected = teamASelected.filter(u => u.uid !== uid);
@@ -815,28 +981,44 @@
           </div>
         </div>`;
       document.body.appendChild(overlay);
-      overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) overlay.remove();
+      });
       const input = document.getElementById('searchUserInput');
       const resultsDiv = document.getElementById('searchResults');
-      input.addEventListener('input', async () => {
-        const q = input.value.trim().toLowerCase();
-        if (!q) { resultsDiv.innerHTML = '<p style="color:var(--text-dim);padding:12px">Ketik untuk mencari...</p>'; return; }
-        const snap = await getDocs(query(collection(db, "users"), where("username", ">=", q), where("username", "<=", q + '\uf8ff'), limit(8)));
-        resultsDiv.innerHTML = snap.docs.map(d => {
-          const u = d.data(); u.uid = d.id;
-          if (team === 'teamA' && teamASelected.some(m => m.uid === u.uid)) return '';
-          if (team === 'teamB' && teamBSelected.some(m => m.uid === u.uid)) return '';
-          return `<div class="search-result-item" onclick="addUserToTeam('${team}','${u.uid}','${u.username}')">
-            <div class="avatar" style="width:32px;height:32px;font-size:0.7rem">${u.username[0]?.toUpperCase()||'?'}</div>
-            <span>${u.username}</span>
-          </div>`;
-        }).join('') || '<p style="color:var(--text-dim);padding:12px">Tidak ditemukan</p>';
+      let debounceTimer;
+      input.addEventListener('input', () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(async () => {
+          const q = input.value.trim().toLowerCase();
+          if (!q) {
+            resultsDiv.innerHTML = '<p style="color:var(--text-dim);padding:12px">Ketik untuk mencari...</p>';
+            return;
+          }
+          const snap = await getDocs(query(collection(db, "users"), where("username", ">=", q), where(
+            "username", "<=", q + '\uf8ff'), limit(8)));
+          if (snap.empty) {
+            resultsDiv.innerHTML = '<p style="color:var(--text-dim);padding:12px">Tidak ditemukan</p>';
+            return;
+          }
+          resultsDiv.innerHTML = snap.docs.map(d => {
+            const u = d.data();
+            u.uid = d.id;
+            const alreadyInTeam = (team === 'teamA' && teamASelected.some(m => m.uid === u
+              .uid)) || (team === 'teamB' && teamBSelected.some(m => m.uid === u.uid));
+            if (alreadyInTeam) return '';
+            return `<div class="search-result-item" onclick="addUserToTeam('${team}','${u.uid}','${u.username}')">
+              <div class="avatar" style="width:32px;height:32px;font-size:0.7rem">${u.username[0]?.toUpperCase()||'?'}</div>
+              <span>${u.username}</span>
+            </div>`;
+          }).join('') || '<p style="color:var(--text-dim);padding:12px">Semua sudah ditambahkan</p>';
+        }, 300);
       });
     };
     window.addUserToTeam = (team, uid, username) => {
       const user = { uid, username };
-      if (team === 'teamA') { if (!teamASelected.find(u => u.uid === uid)) teamASelected.push(user); }
-      else { if (!teamBSelected.find(u => u.uid === uid)) teamBSelected.push(user); }
+      if (team === 'teamA') { if (!teamASelected.find(u => u.uid === uid)) teamASelected.push(user); } else { if (!
+          teamBSelected.find(u => u.uid === uid)) teamBSelected.push(user); }
       renderTeamLists();
       document.querySelector('.popup-overlay')?.remove();
     };
@@ -844,56 +1026,83 @@
     window.createTeamGroup = async () => {
       const title = document.getElementById('cgTitle').value.trim();
       const rules = document.getElementById('cgRules').value.trim();
+      const teamAName = document.getElementById('cgTeamAName').value.trim() || 'Tim A';
+      const teamBName = document.getElementById('cgTeamBName').value.trim() || 'Tim B';
+      const roomLink = document.getElementById('cgRoomLink').value.trim() || null;
       if (!title || !rules) return showPopup('Error', 'Judul dan aturan wajib diisi');
-      if (teamASelected.length === 0 || teamBSelected.length === 0) return showPopup('Error', 'Tambahkan minimal 1 anggota per tim');
-      const allMembers = [...new Set([...teamASelected.map(u => u.uid), ...teamBSelected.map(u => u.uid), currentUser.uid])];
+      if (teamASelected.length === 0 || teamBSelected.length === 0) return showPopup('Error',
+        'Tambahkan minimal 1 anggota per tim');
+      const allMembers = [...new Set([...teamASelected.map(u => u.uid), ...teamBSelected.map(u => u.uid),
+        currentUser.uid
+      ])];
       await addDoc(collection(db, "groups"), {
-        title, rules,
-        teamA: { name: document.getElementById('cgTeamAName').value.trim() || 'Tim A', members: teamASelected.map(u => u.uid) },
-        teamB: { name: document.getElementById('cgTeamBName').value.trim() || 'Tim B', members: teamBSelected.map(u => u.uid) },
-        externalRoomLink: document.getElementById('cgRoomLink').value.trim() || null,
+        title,
+        rules,
+        teamA: { name: teamAName, members: teamASelected.map(u => u.uid) },
+        teamB: { name: teamBName, members: teamBSelected.map(u => u.uid) },
+        externalRoomLink: roomLink,
         idJudgement: currentUser.uid,
-        status: 'active', resultsDeclared: false, winnerId: null,
-        createdAt: serverTimestamp(), members: allMembers, pendingMembers: []
+        status: 'active',
+        resultsDeclared: false,
+        winnerId: null,
+        createdAt: serverTimestamp(),
+        members: allMembers,
+        pendingMembers: []
       });
-      teamASelected = []; teamBSelected = [];
+      teamASelected = [];
+      teamBSelected = [];
       showPage('dashboardPage');
     };
 
     async function loadDashboard() {
       const fiveMin = new Date(Date.now() - 300000);
       onSnapshot(query(collection(db, "users"), where("lastSeen", ">=", fiveMin)), snap => {
-        document.getElementById('onlineCount').innerHTML = `<i class="fas fa-circle pulse" style="color:#27ae60;font-size:9px"></i> ${snap.size} online`;
-        document.getElementById('onlineUserList').innerHTML = snap.docs.map(d => {
-          const u = d.data();
-          return `<div class="user-chip" onclick="inviteUserToGroup('${d.id}')"><span class="status-dot online"></span>${u.username}</div>`;
-        }).join('') || '<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';
+        document.getElementById('onlineCount').innerHTML =
+          `<i class="fas fa-circle pulse" style="color:#27ae60;font-size:9px"></i> ${snap.size} online`;
+        const onlineContainer = document.getElementById('onlineUserList');
+        if (onlineContainer) {
+          onlineContainer.innerHTML = snap.docs.map(d => {
+            const u = d.data();
+            return `<div class="user-chip" onclick="inviteUserToGroup('${d.id}')"><span class="status-dot online"></span>${u.username}</div>`;
+          }).join('') || '<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';
+        }
       });
-      onSnapshot(query(collection(db, "users"), where("lastSeen", "<", fiveMin), orderBy("lastSeen", "desc"), limit(8)), snap => {
-        document.getElementById('offlineUserList').innerHTML = snap.docs.map(d => {
-          const u = d.data();
-          return `<div class="user-chip offline"><span class="status-dot"></span>${u.username}</div>`;
-        }).join('') || '<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';
+      onSnapshot(query(collection(db, "users"), where("lastSeen", "<", fiveMin), orderBy("lastSeen", "desc"),
+        limit(8)), snap => {
+        const offlineContainer = document.getElementById('offlineUserList');
+        if (offlineContainer) {
+          offlineContainer.innerHTML = snap.docs.map(d => {
+            const u = d.data();
+            return `<div class="user-chip offline"><span class="status-dot"></span>${u.username}</div>`;
+          }).join('') || '<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';
+        }
       });
       onSnapshot(query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(1)), snap => {
         const banner = document.getElementById('announceBanner');
         if (snap.empty) { banner.classList.add('hidden'); return; }
-        banner.innerHTML = `<b style="color:#ccc">${snap.docs[0].data().title}</b><br><span style="color:#aaa">${snap.docs[0].data().body}</span>`;
+        banner.innerHTML =
+          `<b style="color:#ccc">${snap.docs[0].data().title}</b><br><span style="color:#aaa">${snap.docs[0].data().body}</span>`;
         banner.classList.remove('hidden');
       });
-      onSnapshot(query(collection(db, "groups"), where("status", "==", "active"), orderBy("createdAt", "desc")), snap => {
-        document.getElementById('groupList').innerHTML = snap.docs.map(d => {
-          const g = d.data(); g.id = d.id;
-          return `<div class="card" onclick="openGroup('${g.id}')" style="cursor:pointer">
-            <b>${g.title}</b><br>
-            <small style="color:var(--text-dim)">${g.teamA?.name || 'Tim A'} (${g.teamA?.members?.length||0}) vs ${g.teamB?.name || 'Tim B'} (${g.teamB?.members?.length||0})</small>
-            ${g.externalRoomLink ? `<a href="${g.externalRoomLink}" target="_blank" class="external-link" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Room</a>` : ''}
-          </div>`;
-        }).join('') || '<p style="color:var(--text-dim);text-align:center">Belum ada debat aktif.</p>';
-      });
+      onSnapshot(query(collection(db, "groups"), where("status", "==", "active"), orderBy("createdAt", "desc")),
+        snap => {
+          document.getElementById('groupList').innerHTML = snap.docs.map(d => {
+            const g = d.data();
+            g.id = d.id;
+            const teamASize = g.teamA?.members?.length || 0;
+            const teamBSize = g.teamB?.members?.length || 0;
+            return `<div class="card" onclick="openGroup('${g.id}')" style="cursor:pointer">
+              <b>${g.title}</b><br>
+              <small style="color:var(--text-dim)">${g.teamA?.name || 'Tim A'} (${teamASize}) vs ${g.teamB?.name || 'Tim B'} (${teamBSize})</small><br>
+              <small style="color:var(--text-secondary)"><i class="fas fa-users"></i> ${g.members?.length||0} anggota</small>
+              ${g.externalRoomLink ? `<a href="${g.externalRoomLink}" target="_blank" class="external-link" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Room</a>` : ''}
+            </div>`;
+          }).join('') || '<p style="color:var(--text-dim);text-align:center">Belum ada debat aktif. Jadilah yang pertama!</p>';
+        });
       if (currentUser) {
         onSnapshot(collection(db, "notifications"), snap => {
-          const c = snap.docs.filter(d => d.data().targetUserId === null || d.data().targetUserId === currentUser.uid).length;
+          const c = snap.docs.filter(d => d.data().targetUserId === null || d.data().targetUserId ===
+            currentUser.uid).length;
           const badge = document.getElementById('notifBadge');
           badge.innerText = c;
           badge.classList.toggle('hidden', c === 0);
@@ -901,28 +1110,46 @@
       }
     }
 
-    window.openGroup = (id) => { currentGroupId = id; showPage('groupDetailPage'); };
+    window.openGroup = (id) => {
+      currentGroupId = id;
+      showPage('groupDetailPage');
+    };
 
     async function loadGroupDetail() {
       if (!currentGroupId) return;
       const snap = await getDoc(doc(db, "groups", currentGroupId));
       if (!snap.exists()) return showPage('dashboardPage');
-      const g = snap.data(); g.id = snap.id;
+      const g = snap.data();
+      g.id = snap.id;
       document.getElementById('gdTitle').innerText = g.title;
+      const teamAMembers = (g.teamA?.members || []).map(uid => `<span class="user-chip">${uid.substring(0,8)}</span>`)
+        .join('') || '<span style="color:var(--text-dim)">Kosong</span>';
+      const teamBMembers = (g.teamB?.members || []).map(uid => `<span class="user-chip">${uid.substring(0,8)}</span>`)
+        .join('') || '<span style="color:var(--text-dim)">Kosong</span>';
       document.getElementById('gdTeams').innerHTML = `
-        <div class="card" style="flex:1;min-width:150px"><b>${g.teamA?.name || 'Tim A'}</b><div class="user-list">${(g.teamA?.members||[]).map(uid => `<span class="user-chip">${uid.substring(0,8)}</span>`).join('')||'<span style="color:var(--text-dim)">Kosong</span>'}</div></div>
-        <div class="card" style="flex:1;min-width:150px"><b>${g.teamB?.name || 'Tim B'}</b><div class="user-list">${(g.teamB?.members||[]).map(uid => `<span class="user-chip">${uid.substring(0,8)}</span>`).join('')||'<span style="color:var(--text-dim)">Kosong</span>'}</div></div>
+        <div class="card" style="flex:1;min-width:150px">
+          <b>${g.teamA?.name || 'Tim A'}</b>
+          <div class="user-list">${teamAMembers}</div>
+        </div>
+        <div class="card" style="flex:1;min-width:150px">
+          <b>${g.teamB?.name || 'Tim B'}</b>
+          <div class="user-list">${teamBMembers}</div>
+        </div>
       `;
       let act = '';
-      if (g.externalRoomLink) act += `<a href="${g.externalRoomLink}" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Room</a>`;
+      if (g.externalRoomLink) act +=
+        `<a href="${g.externalRoomLink}" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Room</a>`;
       if (currentUser.uid === g.idJudgement && g.status === 'active') {
         act += `<button class="btn btn-sm btn-primary" onclick="finishDebate('${g.id}')">Selesai Debat</button>`;
-        if (g.pendingMembers?.length > 0) act += `<button class="btn btn-sm btn-outline" onclick="viewPending('${g.id}')">Permintaan (${g.pendingMembers.length})</button>`;
+        if (g.pendingMembers?.length > 0) act +=
+          `<button class="btn btn-sm btn-outline" onclick="viewPending('${g.id}')">Permintaan (${g.pendingMembers.length})</button>`;
       }
       if (!g.members.includes(currentUser.uid) && !g.pendingMembers?.includes(currentUser.uid)) {
-        act += `<button class="btn btn-sm btn-outline" onclick="requestJoinGroup('${g.id}')">Minta Bergabung</button>`;
+        act +=
+        `<button class="btn btn-sm btn-outline" onclick="requestJoinGroup('${g.id}')">Minta Bergabung</button>`;
       }
-      act += `<button class="btn btn-sm btn-outline" onclick="inviteUserToGroup('${g.id}')"><i class="fas fa-user-plus"></i> Undang</button>`;
+      act +=
+        `<button class="btn btn-sm btn-outline" onclick="inviteUserToGroup('${g.id}')"><i class="fas fa-user-plus"></i> Undang</button>`;
       document.getElementById('gdActions').innerHTML = act;
 
       onSnapshot(query(collection(db, "groups", currentGroupId, "messages"), orderBy("timestamp")), snap => {
@@ -931,28 +1158,47 @@
           const m = d.data();
           return `<div class="chat-bubble ${m.isSystem?'system':(m.senderId===currentUser.uid?'my-msg':'other-msg')}">
             <small style="color:var(--text-dim);font-weight:600">${m.senderUsername}</small><br>${m.text}
-            ${m.imageUrl ? `<img src="${m.imageUrl}" style="max-width:160px;margin-top:4px">` : ''}
+            ${m.imageUrl ? `<img src="${m.imageUrl}" style="max-width:160px;margin-top:4px;border-radius:12px" loading="lazy">` : ''}
           </div>`;
         }).join('');
         ca.scrollTop = ca.scrollHeight;
       });
     }
 
-    window.requestJoinGroup = async (gid) => { await updateDoc(doc(db, "groups", gid), { pendingMembers: arrayUnion(currentUser.uid) }); showPopup('Terkirim', 'Permintaan dikirim.'); };
+    window.requestJoinGroup = async (gid) => {
+      await updateDoc(doc(db, "groups", gid), { pendingMembers: arrayUnion(currentUser.uid) });
+      showPopup('Terkirim', 'Permintaan bergabung telah dikirim ke admin grup.');
+    };
     window.viewPending = async (gid) => {
       const snap = await getDoc(doc(db, "groups", gid));
       const pending = snap.data().pendingMembers || [];
       let list = await Promise.all(pending.map(async uid => {
         const u = await getDoc(doc(db, "users", uid));
-        return `<div class="row" style="justify-content:space-between"><span>${u.data().username}</span><div><button class="btn btn-sm btn-primary" onclick="approveMember('${gid}','${uid}')">Terima</button><button class="btn btn-sm btn-danger" onclick="rejectMember('${gid}','${uid}')">Tolak</button></div></div>`;
+        const username = u.exists() ? u.data().username : uid.substring(0, 8);
+        return `<div class="row" style="justify-content:space-between;margin:6px 0">
+          <span>${username}</span>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-sm btn-primary" onclick="approveMember('${gid}','${uid}')">Terima</button>
+            <button class="btn btn-sm btn-danger" onclick="rejectMember('${gid}','${uid}')">Tolak</button>
+          </div>
+        </div>`;
       }));
-      showPopup('Permintaan', list.join('') || 'Tidak ada');
+      showPopup('Permintaan Bergabung', list.join('') || 'Tidak ada permintaan');
     };
-    window.approveMember = async (gid, uid) => { await updateDoc(doc(db, "groups", gid), { members: arrayUnion(uid), pendingMembers: arrayRemove(uid) }); loadGroupDetail(); };
-    window.rejectMember = async (gid, uid) => { await updateDoc(doc(db, "groups", gid), { pendingMembers: arrayRemove(uid) }); loadGroupDetail(); };
+    window.approveMember = async (gid, uid) => {
+      await updateDoc(doc(db, "groups", gid), { members: arrayUnion(uid), pendingMembers: arrayRemove(uid) });
+      showPopup('Sukses', 'Anggota diterima');
+      loadGroupDetail();
+    };
+    window.rejectMember = async (gid, uid) => {
+      await updateDoc(doc(db, "groups", gid), { pendingMembers: arrayRemove(uid) });
+      showPopup('Info', 'Anggota ditolak');
+      loadGroupDetail();
+    };
 
     window.finishDebate = async (gid) => {
       const snap = await getDoc(doc(db, "groups", gid));
+      if (!snap.exists()) return;
       const g = snap.data();
       const winner = prompt(`Pilih tim pemenang:\nA. ${g.teamA.name}\nB. ${g.teamB.name}`);
       if (!winner || (winner.toUpperCase() !== 'A' && winner.toUpperCase() !== 'B')) return;
@@ -963,6 +1209,13 @@
       winnerTeam.members.forEach(uid => batch.update(doc(db, "users", uid), { wins: increment(1) }));
       loserTeam.members.forEach(uid => batch.update(doc(db, "users", uid), { losses: increment(1) }));
       await batch.commit();
+      await addDoc(collection(db, "notifications"), {
+        title: 'Debat Selesai',
+        body: `${winnerTeam.name} memenangkan debat "${g.title}"!`,
+        targetUserId: null,
+        createdAt: serverTimestamp()
+      });
+      showPopup('Sukses', 'Debat telah diselesaikan.');
       showPage('dashboardPage');
     };
 
@@ -970,60 +1223,116 @@
       onSnapshot(query(collection(db, "communities"), orderBy("createdAt", "desc")), snap => {
         document.getElementById('communityList').innerHTML = snap.docs.map(d => {
           const c = d.data();
-          return `<div class="card" onclick="openCommunity('${d.id}')"><b>${c.name}</b><br><small>${c.members?.length||0} anggota</small></div>`;
-        }).join('') || '<p style="color:var(--text-dim)">Belum ada komunitas</p>';
+          return `<div class="card" onclick="openCommunity('${d.id}')" style="cursor:pointer">
+            <b>${c.name}</b><br>
+            <small style="color:var(--text-dim)">${c.members?.length||0} anggota</small>
+            <br><small style="color:var(--text-secondary)">${c.desc||''}</small>
+          </div>`;
+        }).join('') || '<p style="color:var(--text-dim)">Belum ada komunitas. Buat yang pertama!</p>';
       });
     }
-    window.openCommunity = (id) => { currentCommunityId = id; showPage('communityDetailPage'); };
+    window.openCommunity = (id) => {
+      currentCommunityId = id;
+      showPage('communityDetailPage');
+    };
     window.createCommunity = async () => {
       const name = document.getElementById('comName').value.trim();
       const desc = document.getElementById('comDesc').value.trim();
       if (!name) return showPopup('Error', 'Nama komunitas wajib diisi');
-      await addDoc(collection(db, "communities"), { name, desc, adminId: currentUser.uid, members: [currentUser.uid], createdAt: serverTimestamp() });
+      await addDoc(collection(db, "communities"), {
+        name,
+        desc,
+        adminId: currentUser.uid,
+        members: [currentUser.uid],
+        createdAt: serverTimestamp()
+      });
       showPage('communitiesPage');
     };
     async function loadCommunityDetail() {
       if (!currentCommunityId) return;
       const snap = await getDoc(doc(db, "communities", currentCommunityId));
-      if (!snap.exists()) return;
+      if (!snap.exists()) return showPage('communitiesPage');
       const c = snap.data();
       document.getElementById('comDetailTitle').innerText = c.name;
-      document.getElementById('comDetailDesc').innerText = c.desc || '';
+      document.getElementById('comDetailDesc').innerText = c.desc || 'Tidak ada deskripsi';
       document.getElementById('comMemberCount').innerText = c.members?.length || 0;
       let memberHtml = '';
       for (const uid of c.members) {
         const u = await getDoc(doc(db, "users", uid));
-        const username = u.exists() ? u.data().username : uid.substring(0,8);
-        memberHtml += `<div class="row" style="justify-content:space-between"><span>${username}</span>${c.adminId===currentUser.uid && uid!==currentUser.uid?`<button class="btn btn-sm btn-danger" onclick="kickCommunityMember('${uid}')">Kick</button>`:''}</div>`;
+        const username = u.exists() ? u.data().username : uid.substring(0, 8);
+        const isAdmin = c.adminId === currentUser.uid;
+        const isSelf = uid === currentUser.uid;
+        memberHtml += `<div class="row" style="justify-content:space-between;margin:5px 0;padding:4px 0;border-bottom:1px solid var(--border-dim)">
+          <span>${username} ${uid===c.adminId?'<span style="color:var(--accent-green);font-size:0.7rem">(Admin)</span>':''}</span>
+          ${isAdmin && !isSelf ? `<button class="btn btn-sm btn-danger" onclick="kickCommunityMember('${uid}')">Kick</button>` : ''}
+        </div>`;
       }
-      document.getElementById('comMemberList').innerHTML = memberHtml;
-      document.getElementById('comDetailActions').innerHTML = c.adminId===currentUser.uid ? `<button class="btn btn-sm btn-outline" onclick="inviteToCommunity()"><i class="fas fa-user-plus"></i> Undang</button>` : (c.members.includes(currentUser.uid)?'':`<button class="btn btn-sm btn-primary" onclick="joinCommunity('${currentCommunityId}')">Bergabung</button>`);
+      document.getElementById('comMemberList').innerHTML = memberHtml || '<p style="color:var(--text-dim)">Belum ada anggota</p>';
+      const alreadyMember = c.members.includes(currentUser.uid);
+      document.getElementById('comDetailActions').innerHTML = c.adminId === currentUser.uid ?
+        `<button class="btn btn-sm btn-outline" onclick="inviteToCommunity()"><i class="fas fa-user-plus"></i> Undang Anggota</button>` :
+        (alreadyMember ? '' :
+          `<button class="btn btn-sm btn-primary" onclick="joinCommunity('${currentCommunityId}')">Bergabung</button>`);
     }
-    window.kickCommunityMember = async (uid) => { await updateDoc(doc(db, "communities", currentCommunityId), { members: arrayRemove(uid) }); loadCommunityDetail(); };
-    window.inviteToCommunity = async () => {
-      const username = prompt('Username yang diundang:');
-      if (!username) return;
-      const snap = await getDocs(query(collection(db, "users"), where("username", "==", username)));
-      if (snap.empty) return showPopup('Error', 'Tidak ditemukan');
-      await updateDoc(doc(db, "communities", currentCommunityId), { members: arrayUnion(snap.docs[0].id) });
-      showPopup('Sukses', 'Anggota ditambahkan');
+    window.kickCommunityMember = async (uid) => {
+      if (!confirm('Kick anggota ini dari komunitas?')) return;
+      await updateDoc(doc(db, "communities", currentCommunityId), { members: arrayRemove(uid) });
+      showPopup('Sukses', 'Anggota telah dikeluarkan');
       loadCommunityDetail();
     };
-    window.joinCommunity = async (comId) => { await updateDoc(doc(db, "communities", comId), { members: arrayUnion(currentUser.uid) }); showPopup('Sukses', 'Bergabung!'); loadCommunityDetail(); };
+    window.inviteToCommunity = async () => {
+      const username = prompt('Masukkan username yang ingin diundang:');
+      if (!username) return;
+      const snap = await getDocs(query(collection(db, "users"), where("username", "==", username)));
+      if (snap.empty) return showPopup('Error', 'Pengguna tidak ditemukan');
+      const uid = snap.docs[0].id;
+      const comSnap = await getDoc(doc(db, "communities", currentCommunityId));
+      if (comSnap.data().members.includes(uid)) return showPopup('Info', 'Pengguna sudah menjadi anggota');
+      await updateDoc(doc(db, "communities", currentCommunityId), { members: arrayUnion(uid) });
+      showPopup('Sukses', 'Anggota berhasil ditambahkan');
+      loadCommunityDetail();
+    };
+    window.joinCommunity = async (comId) => {
+      await updateDoc(doc(db, "communities", comId), { members: arrayUnion(currentUser.uid) });
+      showPopup('Sukses', 'Anda telah bergabung dengan komunitas!');
+      loadCommunityDetail();
+    };
 
     function loadLobbies() {
       onSnapshot(query(collection(db, "lobbies"), orderBy("createdAt", "desc")), snap => {
         document.getElementById('lobbyList').innerHTML = snap.docs.map(d => {
           const l = d.data();
-          return `<div class="card"><b>${l.creatorUsername} mencari</b><br>Karakter: ${l.characterNeeded} (${l.tier})${l.judgeName?`<br>Judge: ${l.judgeName}`:''}${l.roomLink?`<br><a href="${l.roomLink}" target="_blank" class="external-link">Room Chat</a>`:''}</div>`;
-        }).join('') || '<p>Belum ada iklan</p>';
+          l.id = d.id;
+          return `<div class="card">
+            <b>${l.creatorUsername} mencari lawan</b><br>
+            <span>Karakter: ${l.characterNeeded} | Tier: ${l.tier}</span>
+            ${l.judgeName ? `<br><span>Judge: ${l.judgeName}</span>` : ''}
+            ${l.roomLink ? `<br><a href="${l.roomLink}" target="_blank" class="external-link"><i class="fas fa-external-link-alt"></i> Room Chat</a>` : ''}
+            ${l.creatorId === currentUser?.uid ? `<br><button class="btn btn-sm btn-danger" onclick="deleteLobby('${l.id}')">Hapus Iklan</button>` : ''}
+          </div>`;
+        }).join('') || '<p style="color:var(--text-dim)">Belum ada iklan pencarian</p>';
       });
     }
     window.createLobby = async () => {
-      const c = document.getElementById('clChar').value.trim(), t = document.getElementById('clTier').value.trim();
+      const c = document.getElementById('clChar').value.trim(),
+        t = document.getElementById('clTier').value.trim();
       if (!c || !t) return showPopup('Error', 'Isi karakter dan tier');
-      await addDoc(collection(db, "lobbies"), { creatorId: currentUser.uid, creatorUsername: currentUserModel?.username||'User', characterNeeded: c, tier: t, judgeName: document.getElementById('clJudge').value.trim()||null, roomLink: document.getElementById('clRoom').value.trim()||null, createdAt: serverTimestamp() });
+      await addDoc(collection(db, "lobbies"), {
+        creatorId: currentUser.uid,
+        creatorUsername: currentUserModel?.username || 'User',
+        characterNeeded: c,
+        tier: t,
+        judgeName: document.getElementById('clJudge').value.trim() || null,
+        roomLink: document.getElementById('clRoom').value.trim() || null,
+        createdAt: serverTimestamp()
+      });
       showPage('lobbyPage');
+    };
+    window.deleteLobby = async (id) => {
+      if (confirm('Hapus iklan ini?')) {
+        await deleteDoc(doc(db, "lobbies", id));
+        showPopup('Sukses', 'Iklan dihapus');
+      }
     };
 
     async function loadProfile() {
@@ -1036,8 +1345,10 @@
       document.getElementById('profileWins').innerText = u.wins || 0;
       document.getElementById('profileLosses').innerText = u.losses || 0;
       const pic = document.getElementById('profilePic');
-      pic.innerHTML = u.photoURL ? `<img src="${u.photoURL}" alt="profile">` : (u.username[0] || '?').toUpperCase();
+      pic.innerHTML = u.photoURL ? `<img src="${u.photoURL}" alt="profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover">` : (
+        u.username[0] || '?').toUpperCase();
     }
+
     function loadEditProfile() {
       if (!currentUserModel) return;
       document.getElementById('epUrl').value = currentUserModel.photoURL || '';
@@ -1045,75 +1356,139 @@
       previewProfileImage();
     }
     window.previewProfileImage = () => {
-      const url = document.getElementById('epUrl').value.trim();
+      const url = document.getElementById('epUrl')?.value?.trim();
       const preview = document.getElementById('editPreview');
-      if (url) preview.innerHTML = `<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<i class=\'fas fa-camera\' style=\'color:#888;font-size:1.8rem\'></i>'">`;
-      else preview.innerHTML = `<i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i>`;
+      if (!preview) return;
+      if (url) {
+        preview.innerHTML =
+          `<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-camera\\' style=\\'color:#888;font-size:1.8rem\\'></i>'">`;
+      } else {
+        preview.innerHTML = `<i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i>`;
+      }
     };
     window.saveProfile = async () => {
       const name = document.getElementById('epUser').value.trim();
       const url = document.getElementById('epUrl').value.trim();
       if (!name) return showPopup('Error', 'Username tidak boleh kosong');
-      const last = currentUserModel.lastUsernameChange?.toDate();
-      if (last && (new Date() - last) < 30 * 24 * 60 * 60 * 1000) return showPopup('Error', 'Username hanya bisa diganti setiap 30 hari');
+      if (currentUserModel?.lastUsernameChange?.toDate) {
+        const last = currentUserModel.lastUsernameChange.toDate();
+        if (last && (new Date() - last) < 30 * 24 * 60 * 60 * 1000) {
+          return showPopup('Error', 'Username hanya bisa diganti setiap 30 hari');
+        }
+      }
       const updateData = { username: name };
       if (url) updateData.photoURL = url;
-      if (name !== currentUserModel.username) updateData.lastUsernameChange = serverTimestamp();
+      if (name !== currentUserModel?.username) updateData.lastUsernameChange = serverTimestamp();
       await updateDoc(doc(db, "users", currentUser.uid), updateData);
-      currentUserModel = { ...currentUserModel, ...updateData };
-      showPopup('Sukses', 'Profil diperbarui');
+      const snap = await getDoc(doc(db, "users", currentUser.uid));
+      if (snap.exists()) currentUserModel = { uid: currentUser.uid, ...snap.data() };
+      showPopup('Sukses', 'Profil berhasil diperbarui');
       showPage('profilePage');
     };
 
     function loadNotifications() {
+      if (!currentUser) return;
       onSnapshot(query(collection(db, "notifications"), orderBy("createdAt", "desc")), snap => {
-        document.getElementById('notifList').innerHTML = snap.docs.filter(d => d.data().targetUserId === null || d.data().targetUserId === currentUser.uid).map(d => {
-          const n = d.data();
-          let actions = '';
-          if (n.type === 'invite' && n.status === 'pending') {
-            actions = `<div class="invite-actions"><button class="btn btn-sm btn-primary" onclick="acceptInvite('${d.id}')">Gabung</button><button class="btn btn-sm btn-danger" onclick="declineInvite('${d.id}')">Tolak</button></div>`;
-          }
-          return `<div class="card"><b>${n.title}</b><br>${n.body}${actions}</div>`;
-        }).join('') || '<p>Tidak ada notifikasi</p>';
+        document.getElementById('notifList').innerHTML = snap.docs
+          .filter(d => d.data().targetUserId === null || d.data().targetUserId === currentUser.uid)
+          .map(d => {
+            const n = d.data();
+            let actions = '';
+            if (n.type === 'invite' && n.status === 'pending' && n.targetUserId === currentUser.uid) {
+              actions = `<div class="invite-actions">
+                <button class="btn btn-sm btn-primary" onclick="acceptInvite('${d.id}')">Gabung</button>
+                <button class="btn btn-sm btn-danger" onclick="declineInvite('${d.id}')">Tolak</button>
+              </div>`;
+            }
+            return `<div class="card">
+              <b>${n.title}</b><br>
+              <span style="color:var(--text-secondary)">${n.body}</span>
+              ${actions}
+            </div>`;
+          }).join('') || '<p style="color:var(--text-dim);text-align:center">Tidak ada notifikasi</p>';
       });
     }
 
     window.adminTab = (tab) => {
       document.querySelectorAll('#adminPage .tab').forEach(t => t.classList.remove('active'));
       event.target.classList.add('active');
-      if (tab === 'announce') {
-        document.getElementById('adminContent').innerHTML = `<input id="annTitle" class="input" placeholder="Judul"><textarea id="annBody" class="input" rows="3" placeholder="Isi"></textarea><button class="btn btn-sm btn-primary" onclick="addAnnouncement()">Kirim</button>`;
-      } else if (tab === 'notif') {
-        document.getElementById('adminContent').innerHTML = `<input id="notifTitle" class="input" placeholder="Judul"><textarea id="notifBody" class="input" rows="3" placeholder="Isi"></textarea><select id="notifTarget" class="input"><option value="">Semua</option></select><button class="btn btn-sm btn-primary" onclick="sendNotif()">Kirim</button>`;
-        getDocs(collection(db, "users")).then(snap => { document.getElementById('notifTarget').innerHTML += snap.docs.map(d => `<option value="${d.id}">${d.data().username}</option>`).join(''); });
-      } else {
-        onSnapshot(collection(db, "users"), snap => {
-          document.getElementById('adminContent').innerHTML = snap.docs.map(d => {
-            const u = d.data();
-            return `<div class="card row"><div><b>${u.username}</b><br><small>${u.email}</small></div><button class="btn btn-sm ${u.banned?'btn-outline':'btn-danger'}" onclick="toggleBan('${d.id}',${u.banned})">${u.banned?'Unban':'Ban'}</button></div>`;
-          }).join('');
-        });
-      }
+      if (tab === 'announce') loadAdminAnnouncements();
+      else if (tab === 'notif') loadAdminNotif();
+      else loadAdminUsers();
     };
+    async function loadAdminAnnouncements() {
+      document.getElementById('adminContent').innerHTML = `
+        <input id="annTitle" class="input" placeholder="Judul Pengumuman">
+        <textarea id="annBody" class="input" rows="3" placeholder="Isi Pengumuman"></textarea>
+        <button class="btn btn-sm btn-primary" onclick="addAnnouncement()">Kirim Pengumuman</button>
+        <div id="announceList" style="margin-top:18px"></div>`;
+      onSnapshot(query(collection(db, "announcements"), orderBy("createdAt", "desc")), snap => {
+        document.getElementById('announceList').innerHTML = snap.docs.map(d =>
+          `<div class="card"><b>${d.data().title}</b><br>${d.data().body}<br><button class="btn btn-sm btn-danger" onclick="deleteAnnouncement('${d.id}')">Hapus</button></div>`
+        ).join('');
+      });
+    }
     window.addAnnouncement = async () => {
-      const t = document.getElementById('annTitle').value.trim(), b = document.getElementById('annBody').value.trim();
-      if (!t || !b) return;
+      const t = document.getElementById('annTitle').value.trim(),
+        b = document.getElementById('annBody').value.trim();
+      if (!t || !b) return showPopup('Error', 'Judul dan isi wajib diisi');
       await addDoc(collection(db, "announcements"), { title: t, body: b, createdAt: serverTimestamp() });
-      document.getElementById('annTitle').value = ''; document.getElementById('annBody').value = '';
-      showPopup('Sukses', 'Dikirim');
+      document.getElementById('annTitle').value = '';
+      document.getElementById('annBody').value = '';
+      showPopup('Sukses', 'Pengumuman dikirim');
     };
+    window.deleteAnnouncement = async (id) => {
+      if (confirm('Hapus pengumuman ini?')) await deleteDoc(doc(db, "announcements", id));
+    };
+    async function loadAdminNotif() {
+      document.getElementById('adminContent').innerHTML = `
+        <input id="notifTitle" class="input" placeholder="Judul Notifikasi">
+        <textarea id="notifBody" class="input" rows="3" placeholder="Isi Notifikasi"></textarea>
+        <select id="notifTarget" class="input"><option value="">Semua pengguna</option></select>
+        <button class="btn btn-sm btn-primary" onclick="sendNotif()">Kirim Notifikasi</button>`;
+      const snap = await getDocs(collection(db, "users"));
+      const sel = document.getElementById('notifTarget');
+      snap.forEach(d => { sel.innerHTML += `<option value="${d.id}">${d.data().username}</option>`; });
+    }
     window.sendNotif = async () => {
-      const t = document.getElementById('notifTitle').value.trim(), b = document.getElementById('notifBody').value.trim(), target = document.getElementById('notifTarget').value || null;
-      if (!t || !b) return;
-      await addDoc(collection(db, "notifications"), { title: t, body: b, targetUserId: target, createdAt: serverTimestamp() });
-      showPopup('Sukses', 'Dikirim');
+      const t = document.getElementById('notifTitle').value.trim(),
+        b = document.getElementById('notifBody').value.trim(),
+        target = document.getElementById('notifTarget').value || null;
+      if (!t || !b) return showPopup('Error', 'Judul dan isi wajib diisi');
+      await addDoc(collection(db, "notifications"), { title: t, body: b, targetUserId: target,
+        createdAt: serverTimestamp() });
+      document.getElementById('notifTitle').value = '';
+      document.getElementById('notifBody').value = '';
+      showPopup('Sukses', 'Notifikasi dikirim');
     };
-    window.toggleBan = async (uid, banned) => { await updateDoc(doc(db, "users", uid), { banned: !banned }); };
+    function loadAdminUsers() {
+      onSnapshot(collection(db, "users"), snap => {
+        document.getElementById('adminContent').innerHTML = snap.docs.map(d => {
+          const u = d.data();
+          u.uid = d.id;
+          return `<div class="card row" style="justify-content:space-between;flex-wrap:wrap">
+            <div><b>${u.username}</b><br><small style="color:var(--text-dim)">${u.email}</small><br><small>Menang: ${u.wins||0} | Kalah: ${u.losses||0}</small></div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <button class="btn btn-sm ${u.banned?'btn-outline':'btn-danger'}" onclick="toggleBan('${u.uid}',${u.banned})">${u.banned?'Unban':'Ban'}</button>
+              <button class="btn btn-sm btn-outline" onclick="toggleAdmin('${u.uid}','${u.role}')">${u.role==='admin'?'Hapus Admin':'Jadikan Admin'}</button>
+            </div>
+          </div>`;
+        }).join('');
+      });
+    }
+    window.toggleBan = async (uid, banned) => {
+      await updateDoc(doc(db, "users", uid), { banned: !banned });
+      showPopup('Sukses', banned ? 'Pengguna di-unban' : 'Pengguna di-ban');
+    };
+    window.toggleAdmin = async (uid, role) => {
+      await updateDoc(doc(db, "users", uid), { role: role === 'admin' ? 'user' : 'admin' });
+      showPopup('Sukses', role === 'admin' ? 'Admin dihapus' : 'Admin ditambahkan');
+    };
 
     function showPopup(title, message) {
       const overlay = document.createElement('div');
       overlay.className = 'popup-overlay';
-      overlay.innerHTML = `<div class="popup"><h3>${title}</h3><div style="max-height:300px;overflow-y:auto;margin:10px 0">${message}</div><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div>`;
+      overlay.innerHTML = `<div class="popup"><h3>${title}</h3><div style="max-height:300px;overflow-y:auto;margin:10px 0;line-height:1.6">${message}</div><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div>`;
       document.body.appendChild(overlay);
       overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
     }
@@ -1123,8 +1498,11 @@
       const input = document.getElementById('chatInput');
       if (!input.value.trim() || !currentGroupId) return;
       await addDoc(collection(db, "groups", currentGroupId, "messages"), {
-        senderId: currentUser.uid, senderUsername: currentUserModel?.username || 'User',
-        text: input.value.trim(), isSystem: false, timestamp: serverTimestamp()
+        senderId: currentUser.uid,
+        senderUsername: currentUserModel?.username || 'User',
+        text: input.value.trim(),
+        isSystem: false,
+        timestamp: serverTimestamp()
       });
       input.value = '';
     };
@@ -1132,8 +1510,12 @@
       const url = prompt('Masukkan URL gambar:');
       if (!url || !currentGroupId) return;
       await addDoc(collection(db, "groups", currentGroupId, "messages"), {
-        senderId: currentUser.uid, senderUsername: currentUserModel?.username || 'User',
-        text: 'Mengirim gambar', imageUrl: url, isSystem: false, timestamp: serverTimestamp()
+        senderId: currentUser.uid,
+        senderUsername: currentUserModel?.username || 'User',
+        text: 'Mengirim gambar',
+        imageUrl: url,
+        isSystem: false,
+        timestamp: serverTimestamp()
       });
     };
 
@@ -1147,36 +1529,62 @@
         const qSnap = await getDocs(query(collection(db, "users"), where("username", "==", targetUid)));
         if (qSnap.empty) return showPopup('Error', 'Pengguna tidak ditemukan');
         targetUid = qSnap.docs[0].id;
+      } else if (!groupId) {
+        groupId = prompt('Masukkan ID grup tujuan:');
+        if (!groupId) return;
       }
       if (!groupId || !targetUid) return;
       const targetSnap = await getDoc(doc(db, "users", targetUid));
       if (!targetSnap.exists()) return showPopup('Error', 'Target tidak valid');
-      if (targetSnap.data().blockedUsers?.includes(currentUser.uid)) return showPopup('Diblokir', 'Anda diblokir.');
-      const lastInvite = (await getDoc(doc(db, "users", currentUser.uid))).data().lastInviteSent?.toDate();
-      if (lastInvite && (new Date() - lastInvite) < 60000) return showPopup('Cooldown', 'Tunggu 1 menit.');
+      const targetData = targetSnap.data();
+      if (targetData.blockedUsers?.includes(currentUser.uid)) return showPopup('Diblokir',
+        'Anda tidak bisa mengundang pengguna ini karena Anda diblokir.');
+      const userData = (await getDoc(doc(db, "users", currentUser.uid))).data();
+      const lastInvite = userData.lastInviteSent?.toDate();
+      if (lastInvite && (new Date() - lastInvite) < 60000) return showPopup('Cooldown',
+        'Tunggu 1 menit sebelum mengundang lagi.');
       await updateDoc(doc(db, "users", currentUser.uid), { lastInviteSent: serverTimestamp() });
       const inviteRef = await addDoc(collection(db, "invites"), {
-        fromUid: currentUser.uid, fromUsername: currentUserModel?.username || 'User',
-        targetUid, groupId, status: 'pending', createdAt: serverTimestamp()
+        fromUid: currentUser.uid,
+        fromUsername: currentUserModel?.username || 'User',
+        targetUid,
+        groupId,
+        status: 'pending',
+        createdAt: serverTimestamp()
       });
       await addDoc(collection(db, "notifications"), {
-        title: 'Undangan Debat', body: `${currentUserModel?.username} mengundang Anda.`,
-        targetUserId: targetUid, type: 'invite', inviteId: inviteRef.id, groupId, status: 'pending', createdAt: serverTimestamp()
+        title: 'Undangan Debat',
+        body: `${currentUserModel?.username||'User'} mengundang Anda ke grup debat.`,
+        targetUserId: targetUid,
+        type: 'invite',
+        inviteId: inviteRef.id,
+        groupId,
+        status: 'pending',
+        createdAt: serverTimestamp()
       });
-      showPopup('Terkirim', 'Undangan dikirim.');
+      showPopup('Terkirim', 'Undangan telah dikirim.');
     };
 
     window.acceptInvite = async (notifId) => {
       const notifSnap = await getDoc(doc(db, "notifications", notifId));
       if (!notifSnap.exists()) return;
       const { inviteId, groupId } = notifSnap.data();
+      if (!inviteId || !groupId) return;
       const inviteSnap = await getDoc(doc(db, "invites", inviteId));
-      if (!inviteSnap.exists() || inviteSnap.data().status !== 'pending') return showPopup('Expired', 'Undangan tidak berlaku.');
+      if (!inviteSnap.exists() || inviteSnap.data().status !== 'pending') {
+        await updateDoc(doc(db, "notifications", notifId), { status: 'expired' });
+        return showPopup('Expired', 'Undangan sudah tidak berlaku.');
+      }
       await updateDoc(doc(db, "invites", inviteId), { status: 'accepted' });
       await updateDoc(doc(db, "notifications", notifId), { status: 'accepted' });
       await updateDoc(doc(db, "groups", groupId), { members: arrayUnion(currentUser.uid) });
-      await addDoc(collection(db, "notifications"), { title: 'Undangan Diterima', body: `${currentUserModel?.username} menerima.`, targetUserId: inviteSnap.data().fromUid, createdAt: serverTimestamp() });
-      showPopup('Sukses', 'Anda bergabung.');
+      await addDoc(collection(db, "notifications"), {
+        title: 'Undangan Diterima',
+        body: `${currentUserModel?.username||'User'} menerima undangan Anda.`,
+        targetUserId: inviteSnap.data().fromUid,
+        createdAt: serverTimestamp()
+      });
+      showPopup('Sukses', 'Anda telah bergabung ke grup.');
       loadNotifications();
     };
 
@@ -1188,36 +1596,50 @@
       await updateDoc(doc(db, "notifications", notifId), { status: 'declined' });
       const invSnap = await getDoc(doc(db, "invites", inviteId));
       if (invSnap.exists()) {
-        await addDoc(collection(db, "notifications"), { title: 'Undangan Ditolak', body: `${currentUserModel?.username} menolak.`, targetUserId: invSnap.data().fromUid, createdAt: serverTimestamp() });
+        await addDoc(collection(db, "notifications"), {
+          title: 'Undangan Ditolak',
+          body: `${currentUserModel?.username||'User'} menolak undangan Anda.`,
+          targetUserId: invSnap.data().fromUid,
+          createdAt: serverTimestamp()
+        });
       }
-      showPopup('Info', 'Ditolak.');
+      showPopup('Info', 'Anda menolak undangan.');
       loadNotifications();
     };
 
     window.showBlockedUsers = async () => {
+      if (!currentUser) return;
       const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+      if (!userDoc.exists()) return;
       const blocked = userDoc.data().blockedUsers || [];
-      let names = await Promise.all(blocked.map(async uid => {
+      let names = await Promise.all(blocked.map(async (uid) => {
         const u = await getDoc(doc(db, "users", uid));
-        return u.exists() ? u.data().username : uid;
+        return u.exists() ? u.data().username : uid.substring(0, 8);
       }));
       const overlay = document.createElement('div');
       overlay.className = 'popup-overlay';
-      overlay.innerHTML = `<div class="popup"><h3>Diblokir</h3><div>${names.map((n,i)=>`<div class="row" style="justify-content:space-between"><span>${n}</span><button class="btn btn-sm btn-danger" onclick="unblockUser('${blocked[i]}')">Buka</button></div>`).join('')||'Tidak ada'}</div><button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="blockUserPrompt()">Blokir Pengguna</button><div class="popup-buttons"><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div></div>`;
+      overlay.innerHTML = `<div class="popup"><h3>Pengguna Diblokir</h3>
+        <div style="max-height:200px;overflow-y:auto;">${names.length ? names.map((n,i) => `<div class="row" style="justify-content:space-between;margin:5px 0"><span>${n}</span><button class="btn btn-sm btn-danger" onclick="unblockUser('${blocked[i]}')">Buka Blokir</button></div>`).join('') : '<p style="color:var(--text-dim)">Tidak ada pengguna diblokir</p>'}</div>
+        <button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="blockUserPrompt()">Blokir Pengguna</button>
+        <div class="popup-buttons"><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div></div>`;
       document.body.appendChild(overlay);
       overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
     };
     window.blockUserPrompt = async () => {
-      const username = prompt('Username:');
+      const username = prompt('Masukkan username yang ingin diblokir:');
       if (!username) return;
       const snap = await getDocs(query(collection(db, "users"), where("username", "==", username)));
-      if (snap.empty) return showPopup('Error', 'Tidak ditemukan');
-      await updateDoc(doc(db, "users", currentUser.uid), { blockedUsers: arrayUnion(snap.docs[0].id) });
+      if (snap.empty) return showPopup('Error', 'Pengguna tidak ditemukan');
+      const uid = snap.docs[0].id;
+      if (uid === currentUser.uid) return showPopup('Error', 'Tidak bisa memblokir diri sendiri');
+      await updateDoc(doc(db, "users", currentUser.uid), { blockedUsers: arrayUnion(uid) });
+      showPopup('Sukses', 'Pengguna berhasil diblokir.');
       document.querySelector('.popup-overlay')?.remove();
       window.showBlockedUsers();
     };
     window.unblockUser = async (uid) => {
       await updateDoc(doc(db, "users", currentUser.uid), { blockedUsers: arrayRemove(uid) });
+      showPopup('Sukses', 'Blokir telah dibuka.');
       document.querySelector('.popup-overlay')?.remove();
       window.showBlockedUsers();
     };
