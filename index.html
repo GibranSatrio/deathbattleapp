@@ -30,6 +30,7 @@
       --text-bright: #efefef;
       --accent-red: #c0392b;
       --accent-green: #27ae60;
+      --accent-yellow: #f1c40f;
       --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.5);
       --shadow-md: 0 8px 28px rgba(0, 0, 0, 0.65);
       --shadow-lg: 0 16px 44px rgba(0, 0, 0, 0.8);
@@ -108,16 +109,8 @@
       display: flex;
     }
     @keyframes pageReveal {
-      from {
-        opacity: 0;
-        transform: translateY(22px) scale(0.97);
-        filter: blur(6px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-      }
+      from { opacity: 0; transform: translateY(22px) scale(0.97); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
     .header {
       background: rgba(5, 5, 5, 0.86);
@@ -134,8 +127,7 @@
       flex-shrink: 0;
       min-height: 56px;
     }
-    .header h2,
-    .header h3 {
+    .header h2, .header h3 {
       font-weight: 700;
       color: var(--text-bright);
       font-family: var(--font-display);
@@ -222,9 +214,7 @@
       width: auto;
       margin: 3px;
     }
-    .input,
-    textarea,
-    select {
+    .input, textarea, select {
       background: rgba(10, 10, 10, 0.86);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
@@ -239,9 +229,7 @@
       transition: all 0.28s;
       box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.48);
     }
-    .input:focus,
-    textarea:focus,
-    select:focus {
+    .input:focus, textarea:focus, select:focus {
       outline: none;
       border-color: rgba(210, 210, 210, 0.55);
       box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.025), inset 0 2px 8px rgba(0, 0, 0, 0.48);
@@ -307,14 +295,8 @@
       -webkit-backdrop-filter: blur(7px);
     }
     @keyframes bubblePop {
-      from {
-        opacity: 0;
-        transform: translateY(14px) scale(0.92);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
+      from { opacity: 0; transform: translateY(14px) scale(0.92); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
     }
     .system {
       background: rgba(42, 42, 42, 0.72);
@@ -366,10 +348,8 @@
     }
     .popup-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.86);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -396,14 +376,8 @@
       animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
     }
     @keyframes popIn {
-      from {
-        transform: scale(0.65) translateY(35px);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1) translateY(0);
-        opacity: 1;
-      }
+      from { transform: scale(0.65) translateY(35px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
     }
     .popup h3 {
       margin-bottom: 14px;
@@ -466,13 +440,11 @@
     }
     .badge {
       position: absolute;
-      top: -5px;
-      right: -5px;
+      top: -5px; right: -5px;
       background: var(--accent-red);
       color: #fff;
       border-radius: 50%;
-      width: 20px;
-      height: 20px;
+      width: 20px; height: 20px;
       font-size: 10px;
       font-weight: 700;
       display: flex;
@@ -483,10 +455,8 @@
     }
     .fab {
       position: fixed;
-      bottom: 26px;
-      right: 26px;
-      width: 58px;
-      height: 58px;
+      bottom: 26px; right: 26px;
+      width: 58px; height: 58px;
       border-radius: 50%;
       background: linear-gradient(145deg, #323232 0%, #1c1c1c 100%);
       border: 1px solid rgba(255, 255, 255, 0.13);
@@ -505,8 +475,7 @@
       box-shadow: var(--shadow-lg);
     }
     .profile-edit-preview {
-      width: 85px;
-      height: 85px;
+      width: 85px; height: 85px;
       border-radius: 50%;
       background: #1e1e1e;
       margin: 10px auto;
@@ -517,8 +486,7 @@
       border: 2px solid rgba(255, 255, 255, 0.14);
     }
     .profile-edit-preview img {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
     }
     .search-results {
@@ -597,13 +565,16 @@
       background: rgba(34, 34, 34, 0.8);
       border-color: var(--border-medium);
     }
-    .link-preview-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-sm);
-      object-fit: cover;
-      background: #1a1a1a;
-      flex-shrink: 0;
+    .com-badge {
+      display: inline-block;
+      background: var(--accent-yellow);
+      color: #000;
+      font-weight: 700;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+      margin-right: 5px;
+      letter-spacing: 0.5px;
     }
     @media (max-width: 480px) {
       .container { padding: 12px 10px; }
@@ -757,7 +728,11 @@
       <div class="header"><button onclick="showPage('communitiesPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2 id="comDetailTitle"></h2><div id="comDetailActions"></div></div>
       <div class="container" style="padding-bottom:0"><p id="comDetailDesc" style="color:var(--text-secondary);margin-bottom:10px"></p><div class="row" style="justify-content:space-between"><h4 style="color:var(--text-dim)">Anggota (<span id="comMemberCount">0</span>)</h4><button class="btn btn-sm btn-outline" onclick="toggleMemberList()"><i class="fas fa-list"></i></button></div><div id="comMemberList" style="margin-top:8px;display:none"></div></div>
       <div id="comChatArea" class="container" style="flex:1;padding-top:0;display:flex;flex-direction:column;gap:4px"></div>
-      <div class="container" style="display:flex;gap:10px;padding-top:0;align-items:center"><input id="comChatInput" class="input" placeholder="Ketik pesan..." style="margin:0;flex:1"><button class="btn btn-sm btn-outline" onclick="sendCommunityImageUrl()"><i class="fas fa-image"></i></button><button class="btn btn-sm btn-primary" onclick="sendCommunityMessage()"><i class="fas fa-paper-plane"></i></button></div>
+      <div class="container" style="display:flex;gap:10px;padding-top:0;align-items:center">
+        <input id="comChatInput" class="input" placeholder="Ketik pesan..." style="margin:0;flex:1">
+        <button class="btn btn-sm btn-outline" onclick="sendCommunityImageUrl()"><i class="fas fa-image"></i></button>
+        <button class="btn btn-sm btn-primary" onclick="sendCommunityMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
     </div>
 
     <!-- ADMIN -->
@@ -773,7 +748,15 @@
     import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updatePassword, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { getFirestore, collection, doc, setDoc, getDoc, updateDoc, deleteDoc, onSnapshot, query, where, orderBy, limit, serverTimestamp, increment, arrayUnion, arrayRemove, writeBatch, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    const firebaseConfig = { apiKey: "AIzaSyAaqhwVyiFRkYSMjtCQlgGGrsZBBIgHJiM", authDomain: "death-aec26.firebaseapp.com", projectId: "death-aec26", storageBucket: "death-aec26.firebasestorage.app", messagingSenderId: "957128428992", appId: "1:957128428992:web:72e1573167fc8500f54c25" };
+    const firebaseConfig = {
+      apiKey: "AIzaSyAaqhwVyiFRkYSMjtCQlgGGrsZBBIgHJiM",
+      authDomain: "death-aec26.firebaseapp.com",
+      projectId: "death-aec26",
+      storageBucket: "death-aec26.firebasestorage.app",
+      messagingSenderId: "957128428992",
+      appId: "1:957128428992:web:72e1573167fc8500f54c25"
+    };
+
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
@@ -793,7 +776,11 @@
           document.getElementById('adminBtn').classList.toggle('hidden', currentUserModel.role !== 'admin');
         }
         showPage('dashboardPage');
-      } else { currentUserModel = null; document.getElementById('adminBtn').classList.add('hidden'); showPage('loginPage'); }
+      } else {
+        currentUserModel = null;
+        document.getElementById('adminBtn').classList.add('hidden');
+        showPage('loginPage');
+      }
     });
 
     window.showPage = (id) => {
@@ -811,12 +798,21 @@
       if (id === 'createGroupPage') { teamASelected = []; teamBSelected = []; renderTeamLists(); }
     };
 
-    window.loginEmail = async () => { try { await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPass').value); } catch (e) { showPopup('Login Gagal', e.message); } };
-    window.loginGoogle = async () => { try { await signInWithPopup(auth, googleProvider); } catch (e) { showPopup('Google Login Gagal', e.message); } };
+    window.loginEmail = async () => {
+      try {
+        await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPass').value);
+      } catch (e) { showPopup('Login Gagal', e.message); }
+    };
+    window.loginGoogle = async () => {
+      try { await signInWithPopup(auth, googleProvider); } catch (e) { showPopup('Google Login Gagal', e.message); }
+    };
     window.register = async () => {
       const email = document.getElementById('regEmail').value, pass = document.getElementById('regPass').value, username = document.getElementById('regUser').value;
       if (!email || !pass || !username) return showPopup('Error', 'Isi semua field');
-      try { const res = await createUserWithEmailAndPassword(auth, email, pass); await setDoc(doc(db, "users", res.user.uid), { email, username, wins: 0, losses: 0, lastUsernameChange: serverTimestamp(), lastSeen: serverTimestamp(), photoURL: null, role: 'user', banned: false, blockedUsers: [], lastInviteSent: null }); } catch (e) { showPopup('Daftar Gagal', e.message); }
+      try {
+        const res = await createUserWithEmailAndPassword(auth, email, pass);
+        await setDoc(doc(db, "users", res.user.uid), { email, username, wins: 0, losses: 0, lastUsernameChange: serverTimestamp(), lastSeen: serverTimestamp(), photoURL: null, role: 'user', banned: false, blockedUsers: [], lastInviteSent: null });
+      } catch (e) { showPopup('Daftar Gagal', e.message); }
     };
     window.signOut = () => signOut(auth);
 
@@ -846,13 +842,13 @@
       if(!title||!rules) return showPopup('Error','Judul dan aturan wajib diisi');
       if(teamASelected.length===0||teamBSelected.length===0) return showPopup('Error','Tambahkan minimal 1 anggota per tim');
       const allMembers=[...new Set([...teamASelected.map(u=>u.uid),...teamBSelected.map(u=>u.uid),currentUser.uid])];
-      await addDoc(collection(db,"groups"),{title,rules,teamA:{name:document.getElementById('cgTeamAName').value.trim()||'Tim A',members:teamASelected.map(u=>u.uid)},teamB:{name:document.getElementById('cgTeamBName').value.trim()||'Tim B',members:teamBSelected.map(u=>u.uid)},externalRoomLink:roomLink,idJudgement:currentUser.uid,status:'active',resultsDeclared:false,winnerId:null,createdAt:serverTimestamp(),members:allMembers,pendingMembers:[]});
+      await addDoc(collection(db,"groups"),{title,rules,teamA:{name:document.getElementById('cgTeamAName').value.trim()||'Tim A',members:teamASelected.map(u=>u.uid)},teamB:{name:document.getElementById('cgTeamBName').value.trim()||'Tim B',members:teamBSelected.map(u=>u.uid)},externalRoomLink:roomLink,idJudgement:currentUser.uid,status:'active',resultsDeclared:false,winnerId:null,createdAt:serverTimestamp(),members:allMembers});
       teamASelected=[]; teamBSelected=[]; showPage('dashboardPage');
     };
 
     async function loadDashboard() {
       const fiveMin=new Date(Date.now()-300000);
-      onSnapshot(query(collection(db,"users"),where("lastSeen",">=",fiveMin)),snap=>{document.getElementById('onlineCount').innerHTML=`<i class="fas fa-circle pulse" style="color:#27ae60;font-size:9px"></i> ${snap.size} online`;const oc=document.getElementById('onlineUserList');if(oc)oc.innerHTML=snap.docs.map(d=>`<div class="user-chip" onclick="inviteUserToGroup('${d.id}')"><span class="status-dot online"></span>${d.data().username}</div>`).join('')||'<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';});
+      onSnapshot(query(collection(db,"users"),where("lastSeen",">=",fiveMin)),snap=>{document.getElementById('onlineCount').innerHTML=`<i class="fas fa-circle pulse" style="color:#27ae60;font-size:9px"></i> ${snap.size} online`;const oc=document.getElementById('onlineUserList');if(oc)oc.innerHTML=snap.docs.map(d=>`<div class="user-chip" onclick="addUserToGroup('${d.id}')"><span class="status-dot online"></span>${d.data().username}</div>`).join('')||'<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';});
       onSnapshot(query(collection(db,"users"),where("lastSeen","<",fiveMin),orderBy("lastSeen","desc"),limit(8)),snap=>{const ofc=document.getElementById('offlineUserList');if(ofc)ofc.innerHTML=snap.docs.map(d=>`<div class="user-chip offline"><span class="status-dot"></span>${d.data().username}</div>`).join('')||'<span style="color:var(--text-dim);font-size:0.72rem">Tidak ada</span>';});
       onSnapshot(query(collection(db,"announcements"),orderBy("createdAt","desc"),limit(1)),snap=>{const b=document.getElementById('announceBanner');if(snap.empty){b.classList.add('hidden');return}b.innerHTML=`<b style="color:#ccc">${snap.docs[0].data().title}</b><br><span style="color:#aaa">${snap.docs[0].data().body}</span>`;b.classList.remove('hidden');});
       onSnapshot(query(collection(db,"groups"),where("status","==","active"),orderBy("createdAt","desc")),snap=>{document.getElementById('groupList').innerHTML=snap.docs.map(d=>{const g=d.data();g.id=d.id;return`<div class="card" onclick="openGroup('${g.id}')" style="cursor:pointer"><b>${g.title}</b><br><small style="color:var(--text-dim)">${g.teamA?.name||'Tim A'} (${g.teamA?.members?.length||0}) vs ${g.teamB?.name||'Tim B'} (${g.teamB?.members?.length||0})</small>${g.externalRoomLink?`<a href="${g.externalRoomLink}" target="_blank" class="external-link" onclick="event.stopPropagation()"><i class="fas fa-external-link-alt"></i> Room</a>`:''}</div>`}).join('')||'<p style="color:var(--text-dim);text-align:center">Belum ada debat aktif.</p>';});
@@ -861,41 +857,95 @@
 
     window.openGroup = (id) => { currentGroupId = id; showPage('groupDetailPage'); };
 
+    window.addUserToGroup = async (uid) => {
+      if (!currentGroupId) {
+        const groupsSnap = await getDocs(query(collection(db,"groups"), where("status","==","active"), limit(1)));
+        if (groupsSnap.empty) return showPopup('Info','Belum ada grup aktif');
+        currentGroupId = groupsSnap.docs[0].id;
+      }
+      await updateDoc(doc(db,"groups",currentGroupId),{members:arrayUnion(uid)});
+      showPopup('Sukses','Pengguna ditambahkan ke grup');
+      if (currentGroupId && document.getElementById('groupDetailPage').classList.contains('active')) loadGroupDetail();
+    };
+
     async function loadGroupDetail() {
       if(!currentGroupId)return;const snap=await getDoc(doc(db,"groups",currentGroupId));if(!snap.exists())return showPage('dashboardPage');const g=snap.data();g.id=snap.id;
       document.getElementById('gdTitle').innerText=g.title;
       document.getElementById('gdTeams').innerHTML=`<div class="card" style="flex:1;min-width:150px"><b>${g.teamA?.name||'Tim A'}</b><div class="user-list">${(g.teamA?.members||[]).map(uid=>`<span class="user-chip">${uid.substring(0,8)}</span>`).join('')||'Kosong'}</div></div><div class="card" style="flex:1;min-width:150px"><b>${g.teamB?.name||'Tim B'}</b><div class="user-list">${(g.teamB?.members||[]).map(uid=>`<span class="user-chip">${uid.substring(0,8)}</span>`).join('')||'Kosong'}</div></div>`;
       let act='';if(g.externalRoomLink)act+=`<a href="${g.externalRoomLink}" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Room</a>`;
-      if(currentUser.uid===g.idJudgement&&g.status==='active'){act+=`<button class="btn btn-sm btn-primary" onclick="finishDebate('${g.id}')">Selesai Debat</button>`;if(g.pendingMembers?.length>0)act+=`<button class="btn btn-sm btn-outline" onclick="viewPending('${g.id}')">Permintaan (${g.pendingMembers.length})</button>`;}
-      if(!g.members.includes(currentUser.uid)&&!g.pendingMembers?.includes(currentUser.uid))act+=`<button class="btn btn-sm btn-outline" onclick="requestJoinGroup('${g.id}')">Minta Bergabung</button>`;
-      act+=`<button class="btn btn-sm btn-outline" onclick="inviteUserToGroup('${g.id}')"><i class="fas fa-user-plus"></i> Undang</button>`;document.getElementById('gdActions').innerHTML=act;
+      if(currentUser.uid===g.idJudgement&&g.status==='active'){act+=`<button class="btn btn-sm btn-primary" onclick="finishDebate('${g.id}')">Selesai Debat</button>`;}
+      document.getElementById('gdActions').innerHTML=act;
       onSnapshot(query(collection(db,"groups",currentGroupId,"messages"),orderBy("timestamp")),snap=>{const ca=document.getElementById('chatArea');ca.innerHTML=snap.docs.map(d=>{const m=d.data();let im='';if(m.imageUrl)im=`<img src="${m.imageUrl}" style="max-width:180px;margin-top:6px;border-radius:12px" loading="lazy">`;else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.8rem">${match[0]}</span><i class="fas fa-external-link-alt" style="font-size:0.7rem"></i></div>`;}return`<div class="chat-bubble ${m.isSystem?'system':(m.senderId===currentUser.uid?'my-msg':'other-msg')}"><small style="color:var(--text-dim);font-weight:600">${m.senderUsername}</small><br>${m.text}${im}</div>`}).join('');ca.scrollTop=ca.scrollHeight;});
     }
 
-    window.requestJoinGroup = async (gid) => { await updateDoc(doc(db,"groups",gid),{pendingMembers:arrayUnion(currentUser.uid)}); showPopup('Terkirim','Permintaan dikirim.'); };
-    window.viewPending = async (gid) => { const snap=await getDoc(doc(db,"groups",gid));const pending=snap.data().pendingMembers||[];let list=await Promise.all(pending.map(async uid=>{const u=await getDoc(doc(db,"users",uid));return`<div class="row" style="justify-content:space-between"><span>${u.data().username}</span><div><button class="btn btn-sm btn-primary" onclick="approveMember('${gid}','${uid}')">Terima</button><button class="btn btn-sm btn-danger" onclick="rejectMember('${gid}','${uid}')">Tolak</button></div></div>`;}));showPopup('Permintaan',list.join('')||'Tidak ada'); };
-    window.approveMember = async (gid,uid) => { await updateDoc(doc(db,"groups",gid),{members:arrayUnion(uid),pendingMembers:arrayRemove(uid)}); loadGroupDetail(); };
-    window.rejectMember = async (gid,uid) => { await updateDoc(doc(db,"groups",gid),{pendingMembers:arrayRemove(uid)}); loadGroupDetail(); };
-    window.finishDebate = async (gid) => { const snap=await getDoc(doc(db,"groups",gid));const g=snap.data();const w=prompt(`Pilih pemenang:\nA. ${g.teamA.name}\nB. ${g.teamB.name}`);if(!w||(w.toUpperCase()!=='A'&&w.toUpperCase()!=='B'))return;const wt=w.toUpperCase()==='A'?g.teamA:g.teamB,lt=w.toUpperCase()==='A'?g.teamB:g.teamA;const batch=writeBatch(db);batch.update(doc(db,"groups",gid),{status:'finished',winnerId:wt.name});wt.members.forEach(uid=>batch.update(doc(db,"users",uid),{wins:increment(1)}));lt.members.forEach(uid=>batch.update(doc(db,"users",uid),{losses:increment(1)}));await batch.commit();showPage('dashboardPage'); };
+    window.finishDebate = async (gid) => { const snap=await getDoc(doc(db,"groups",gid));if(!snap.exists())return;const g=snap.data();const w=prompt(`Pilih pemenang:\nA. ${g.teamA.name}\nB. ${g.teamB.name}`);if(!w||(w.toUpperCase()!=='A'&&w.toUpperCase()!=='B'))return;const wt=w.toUpperCase()==='A'?g.teamA:g.teamB,lt=w.toUpperCase()==='A'?g.teamB:g.teamA;const batch=writeBatch(db);batch.update(doc(db,"groups",gid),{status:'finished',winnerId:wt.name});wt.members.forEach(uid=>batch.update(doc(db,"users",uid),{wins:increment(1)}));lt.members.forEach(uid=>batch.update(doc(db,"users",uid),{losses:increment(1)}));await batch.commit();showPage('dashboardPage'); };
 
     async function loadCommunities() { onSnapshot(query(collection(db,"communities"),orderBy("createdAt","desc")),snap=>{document.getElementById('communityList').innerHTML=snap.docs.map(d=>{const c=d.data();return`<div class="card" onclick="openCommunity('${d.id}')"><b>${c.name}</b><br><small>${c.members?.length||0} anggota</small></div>`}).join('')||'<p style="color:var(--text-dim)">Belum ada komunitas</p>';}); }
     window.openCommunity = (id) => { currentCommunityId = id; showPage('communityDetailPage'); };
-    window.createCommunity = async () => { const name=document.getElementById('comName').value.trim(),desc=document.getElementById('comDesc').value.trim();if(!name)return;await addDoc(collection(db,"communities"),{name,desc,adminId:currentUser.uid,members:[currentUser.uid],createdAt:serverTimestamp()});showPage('communitiesPage'); };
+    window.createCommunity = async () => { const name=document.getElementById('comName').value.trim(),desc=document.getElementById('comDesc').value.trim();if(!name)return;await addDoc(collection(db,"communities"),{name,desc,adminId:currentUser.uid,members:[currentUser.uid],createdAt:serverTimestamp(),chatLocked:false});showPage('communitiesPage'); };
     async function loadCommunityDetail() {
       if(!currentCommunityId)return;const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return showPage('communitiesPage');const c=snap.data();
       document.getElementById('comDetailTitle').innerText=c.name;document.getElementById('comDetailDesc').innerText=c.desc||'';document.getElementById('comMemberCount').innerText=c.members?.length||0;
       let memberHtml='';for(const uid of c.members){const u=await getDoc(doc(db,"users",uid));const uname=u.exists()?u.data().username:uid.substring(0,8);memberHtml+=`<div class="row" style="justify-content:space-between"><span>${uname}${uid===c.adminId?' <small style="color:var(--accent-green)">Admin</small>':''}</span>${c.adminId===currentUser.uid&&uid!==currentUser.uid?`<button class="btn btn-sm btn-danger" onclick="kickCommunityMember('${uid}')">Kick</button>`:''}</div>`;}
       document.getElementById('comMemberList').innerHTML=memberHtml;
-      document.getElementById('comDetailActions').innerHTML=c.adminId===currentUser.uid?`<button class="btn btn-sm btn-outline" onclick="inviteToCommunity()"><i class="fas fa-user-plus"></i> Undang</button>`:(c.members.includes(currentUser.uid)?'':`<button class="btn btn-sm btn-primary" onclick="joinCommunity('${currentCommunityId}')">Bergabung</button>`);
-      onSnapshot(query(collection(db,"communities",currentCommunityId,"messages"),orderBy("timestamp")),snap=>{const ca=document.getElementById('comChatArea');ca.innerHTML=snap.docs.map(d=>{const m=d.data();let im='';if(m.imageUrl)im=`<img src="${m.imageUrl}" style="max-width:160px;margin-top:5px;border-radius:10px">`;else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem">${match[0]}</span></div>`;}return`<div class="chat-bubble ${m.senderId===currentUser.uid?'my-msg':'other-msg'}"><small style="color:var(--text-dim);font-weight:600">${m.senderUsername}</small><br>${m.text}${im}</div>`}).join('');ca.scrollTop=ca.scrollHeight;});
+      const isAdmin = c.adminId === currentUser.uid;
+      let actions = '';
+      if (isAdmin) {
+        actions += `<button class="btn btn-sm btn-outline" onclick="inviteToCommunity()"><i class="fas fa-user-plus"></i> Undang</button>`;
+        actions += `<button class="btn btn-sm btn-outline" onclick="toggleCommunityChatLock()"><i class="fas ${c.chatLocked?'fa-lock-open':'fa-lock'}"></i> ${c.chatLocked?'Buka Chat':'Kunci Chat'}</button>`;
+      } else if (!c.members.includes(currentUser.uid)) {
+        actions += `<button class="btn btn-sm btn-primary" onclick="joinCommunity('${currentCommunityId}')">Bergabung</button>`;
+      }
+      document.getElementById('comDetailActions').innerHTML = actions;
+
+      const chatLocked = c.chatLocked || false;
+      const canSend = isAdmin || !chatLocked;
+      document.getElementById('comChatInput').disabled = !canSend;
+      document.querySelector('#communityDetailPage .btn-primary').disabled = !canSend;
+      document.querySelector('#communityDetailPage .btn-outline[onclick*="sendCommunityImageUrl"]').disabled = !canSend;
+      if (chatLocked && !isAdmin) {
+        document.getElementById('comChatInput').placeholder = 'Chat dikunci oleh admin';
+      } else {
+        document.getElementById('comChatInput').placeholder = 'Ketik pesan...';
+      }
+
+      onSnapshot(query(collection(db,"communities",currentCommunityId,"messages"),orderBy("timestamp")),snap=>{const ca=document.getElementById('comChatArea');ca.innerHTML=snap.docs.map(d=>{const m=d.data();let im='';if(m.imageUrl)im=`<img src="${m.imageUrl}" style="max-width:160px;margin-top:5px;border-radius:10px">`;else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem">${match[0]}</span></div>`;}return`<div class="chat-bubble ${m.senderId===currentUser.uid?'my-msg':'other-msg'}"><small style="color:var(--text-dim);font-weight:600"><span class="com-badge">${c.name}</span>${m.senderUsername}</small><br>${m.text}${im}</div>`}).join('');ca.scrollTop=ca.scrollHeight;});
     }
     window.toggleMemberList = () => { const el=document.getElementById('comMemberList');el.style.display=el.style.display==='none'?'block':'none'; };
     window.kickCommunityMember = async (uid) => { if(!confirm('Kick?'))return;await updateDoc(doc(db,"communities",currentCommunityId),{members:arrayRemove(uid)});loadCommunityDetail(); };
     window.inviteToCommunity = async () => { const uname=prompt('Username:');if(!uname)return;const snap=await getDocs(query(collection(db,"users"),where("username","==",uname)));if(snap.empty)return showPopup('Error','Tidak ditemukan');await updateDoc(doc(db,"communities",currentCommunityId),{members:arrayUnion(snap.docs[0].id)});loadCommunityDetail(); };
     window.joinCommunity = async (comId) => { await updateDoc(doc(db,"communities",comId),{members:arrayUnion(currentUser.uid)});showPopup('Sukses','Bergabung!');loadCommunityDetail(); };
+    window.toggleCommunityChatLock = async () => {
+      const snap = await getDoc(doc(db,"communities",currentCommunityId));
+      if (!snap.exists()) return;
+      const currentLocked = snap.data().chatLocked || false;
+      await updateDoc(doc(db,"communities",currentCommunityId),{chatLocked:!currentLocked});
+      loadCommunityDetail();
+    };
 
-    window.sendCommunityMessage = async () => { const input=document.getElementById('comChatInput');if(!input.value.trim()||!currentCommunityId)return;await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),timestamp:serverTimestamp()});input.value=''; };
-    window.sendCommunityImageUrl = async () => { const url=prompt('URL gambar:');if(!url||!currentCommunityId)return;await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,timestamp:serverTimestamp()}); };
+    window.sendCommunityMessage = async () => {
+      if (!currentCommunityId) return;
+      const snap = await getDoc(doc(db,"communities",currentCommunityId));
+      if (!snap.exists()) return;
+      const c = snap.data();
+      const isAdmin = c.adminId === currentUser.uid;
+      if (c.chatLocked && !isAdmin) { showPopup('Terkunci','Hanya admin yang bisa mengirim pesan'); return; }
+      const input=document.getElementById('comChatInput');
+      if(!input.value.trim())return;
+      await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),timestamp:serverTimestamp()});
+      input.value='';
+    };
+    window.sendCommunityImageUrl = async () => {
+      if (!currentCommunityId) return;
+      const snap = await getDoc(doc(db,"communities",currentCommunityId));
+      if (!snap.exists()) return;
+      const c = snap.data();
+      const isAdmin = c.adminId === currentUser.uid;
+      if (c.chatLocked && !isAdmin) { showPopup('Terkunci','Hanya admin yang bisa mengirim gambar'); return; }
+      const url=prompt('URL gambar:');
+      if(!url)return;
+      await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,timestamp:serverTimestamp()});
+    };
 
     function loadLobbies() { onSnapshot(query(collection(db,"lobbies"),orderBy("createdAt","desc")),snap=>{document.getElementById('lobbyList').innerHTML=snap.docs.map(d=>{const l=d.data();return`<div class="card"><b>${l.creatorUsername} mencari</b><br>${l.characterNeeded} (${l.tier})${l.judgeName?`<br>Judge: ${l.judgeName}`:''}${l.roomLink?`<br><a href="${l.roomLink}" target="_blank" class="external-link">Room</a>`:''}</div>`}).join('')||'<p>Belum ada iklan</p>';}); }
     window.createLobby = async () => { const c=document.getElementById('clChar').value.trim(),t=document.getElementById('clTier').value.trim();if(!c||!t)return;await addDoc(collection(db,"lobbies"),{creatorId:currentUser.uid,creatorUsername:currentUserModel?.username||'User',characterNeeded:c,tier:t,judgeName:document.getElementById('clJudge').value.trim()||null,roomLink:document.getElementById('clRoom').value.trim()||null,createdAt:serverTimestamp()});showPage('lobbyPage'); };
@@ -904,15 +954,9 @@
     function loadEditProfile() { if(!currentUserModel)return;document.getElementById('epUrl').value=currentUserModel.photoURL||'';document.getElementById('epUser').value=currentUserModel.username||'';previewProfileImage(); }
     window.previewProfileImage = () => { const url=document.getElementById('epUrl')?.value?.trim();const preview=document.getElementById('editPreview');if(!preview)return;if(url)preview.innerHTML=`<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-camera\\' style=\\'color:#888;font-size:1.8rem\\'></i>'">`;else preview.innerHTML=`<i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i>`; };
     window.saveProfile = async () => { const name=document.getElementById('epUser').value.trim(),url=document.getElementById('epUrl').value.trim();if(!name)return showPopup('Error','Username kosong');const last=currentUserModel?.lastUsernameChange?.toDate();if(last&&(new Date()-last)<30*24*60*60*1000)return showPopup('Error','30 hari');const up={username:name};if(url)up.photoURL=url;if(name!==currentUserModel?.username)up.lastUsernameChange=serverTimestamp();await updateDoc(doc(db,"users",currentUser.uid),up);currentUserModel={...currentUserModel,...up};showPopup('Sukses','Profil diperbarui');showPage('profilePage'); };
-    window.changePassword = async () => {
-      const oldPass=document.getElementById('epOldPass').value, newPass=document.getElementById('epNewPass').value, confirmPass=document.getElementById('epConfirmPass').value;
-      if(!oldPass||!newPass||!confirmPass) return showPopup('Error','Isi semua field');
-      if(newPass!==confirmPass) return showPopup('Error','Password baru tidak cocok');
-      if(newPass.length<6) return showPopup('Error','Password minimal 6 karakter');
-      try { const credential = EmailAuthProvider.credential(currentUser.email, oldPass); await reauthenticateWithCredential(currentUser, credential); await updatePassword(currentUser, newPass); showPopup('Sukses','Password berhasil diubah'); document.getElementById('epOldPass').value=''; document.getElementById('epNewPass').value=''; document.getElementById('epConfirmPass').value=''; showPage('profilePage'); } catch(e) { showPopup('Gagal','Password lama salah atau terjadi kesalahan.'); }
-    };
+    window.changePassword = async () => { const oldPass=document.getElementById('epOldPass').value,newPass=document.getElementById('epNewPass').value,confirmPass=document.getElementById('epConfirmPass').value;if(!oldPass||!newPass||!confirmPass)return showPopup('Error','Isi semua');if(newPass!==confirmPass)return showPopup('Error','Password baru tidak cocok');if(newPass.length<6)return showPopup('Error','Minimal 6 karakter');try{const credential=EmailAuthProvider.credential(currentUser.email,oldPass);await reauthenticateWithCredential(currentUser,credential);await updatePassword(currentUser,newPass);showPopup('Sukses','Password diubah');showPage('profilePage');}catch(e){showPopup('Gagal','Password lama salah');} };
 
-    function loadNotifications() { if(!currentUser)return;onSnapshot(query(collection(db,"notifications"),orderBy("createdAt","desc")),snap=>{document.getElementById('notifList').innerHTML=snap.docs.filter(d=>d.data().targetUserId===null||d.data().targetUserId===currentUser.uid).map(d=>{const n=d.data();let a='';if(n.type==='invite'&&n.status==='pending')a=`<div class="invite-actions"><button class="btn btn-sm btn-primary" onclick="acceptInvite('${d.id}')">Gabung</button><button class="btn btn-sm btn-danger" onclick="declineInvite('${d.id}')">Tolak</button></div>`;return`<div class="card"><b>${n.title}</b><br>${n.body}${a}</div>`}).join('')||'<p>Tidak ada notifikasi</p>';}); }
+    function loadNotifications() { if(!currentUser)return;onSnapshot(query(collection(db,"notifications"),orderBy("createdAt","desc")),snap=>{document.getElementById('notifList').innerHTML=snap.docs.filter(d=>d.data().targetUserId===null||d.data().targetUserId===currentUser.uid).map(d=>{const n=d.data();return`<div class="card"><b>${n.title}</b><br>${n.body}</div>`}).join('')||'<p>Tidak ada notifikasi</p>';}); }
 
     window.adminTab = (tab) => { document.querySelectorAll('#adminPage .tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active');if(tab==='announce'){document.getElementById('adminContent').innerHTML=`<input id="annTitle" class="input" placeholder="Judul"><textarea id="annBody" class="input" rows="3" placeholder="Isi"></textarea><button class="btn btn-sm btn-primary" onclick="addAnnouncement()">Kirim</button>`;}else if(tab==='notif'){document.getElementById('adminContent').innerHTML=`<input id="notifTitle" class="input" placeholder="Judul"><textarea id="notifBody" class="input" rows="3" placeholder="Isi"></textarea><select id="notifTarget" class="input"><option value="">Semua</option></select><button class="btn btn-sm btn-primary" onclick="sendNotif()">Kirim</button>`;getDocs(collection(db,"users")).then(s=>{document.getElementById('notifTarget').innerHTML+=s.docs.map(d=>`<option value="${d.id}">${d.data().username}</option>`).join('');});}else{onSnapshot(collection(db,"users"),snap=>{document.getElementById('adminContent').innerHTML=snap.docs.map(d=>{const u=d.data();return`<div class="card row"><div><b>${u.username}</b><br><small>${u.email}</small></div><button class="btn btn-sm ${u.banned?'btn-outline':'btn-danger'}" onclick="toggleBan('${d.id}',${u.banned})">${u.banned?'Unban':'Ban'}</button></div>`}).join('');});}};
     window.addAnnouncement = async () => { const t=document.getElementById('annTitle').value.trim(),b=document.getElementById('annBody').value.trim();if(!t||!b)return;await addDoc(collection(db,"announcements"),{title:t,body:b,createdAt:serverTimestamp()});showPopup('Sukses','Dikirim'); };
@@ -924,10 +968,6 @@
 
     window.sendMessage = async () => { const input=document.getElementById('chatInput');if(!input.value.trim()||!currentGroupId)return;await addDoc(collection(db,"groups",currentGroupId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),isSystem:false,timestamp:serverTimestamp()});input.value=''; };
     window.sendImageUrl = async () => { const url=prompt('URL Gambar:');if(!url||!currentGroupId)return;await addDoc(collection(db,"groups",currentGroupId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,isSystem:false,timestamp:serverTimestamp()}); };
-
-    window.inviteUserToGroup = async (targetUidOrGroupId) => { if(!currentUser)return;let groupId=currentGroupId,targetUid=targetUidOrGroupId;if(groupId&&targetUid===groupId){targetUid=prompt('Username:');if(!targetUid)return;const qs=await getDocs(query(collection(db,"users"),where("username","==",targetUid)));if(qs.empty)return showPopup('Error','Tidak ditemukan');targetUid=qs.docs[0].id;}if(!groupId||!targetUid)return;const ts=await getDoc(doc(db,"users",targetUid));if(!ts.exists())return;if(ts.data().blockedUsers?.includes(currentUser.uid))return showPopup('Diblokir','Tidak bisa');const last=((await getDoc(doc(db,"users",currentUser.uid))).data().lastInviteSent?.toDate());if(last&&(new Date()-last)<60000)return showPopup('Cooldown','1 menit');await updateDoc(doc(db,"users",currentUser.uid),{lastInviteSent:serverTimestamp()});const inv=await addDoc(collection(db,"invites"),{fromUid:currentUser.uid,fromUsername:currentUserModel?.username,targetUid,groupId,status:'pending',createdAt:serverTimestamp()});await addDoc(collection(db,"notifications"),{title:'Undangan',body:`${currentUserModel?.username} mengundang Anda.`,targetUserId:targetUid,type:'invite',inviteId:inv.id,groupId,status:'pending',createdAt:serverTimestamp()});showPopup('Terkirim','Undangan dikirim.'); };
-    window.acceptInvite = async (nid) => { const ns=await getDoc(doc(db,"notifications",nid));if(!ns.exists())return;const{inviteId,groupId}=ns.data();const is=await getDoc(doc(db,"invites",inviteId));if(!is.exists()||is.data().status!=='pending')return showPopup('Expired','Tidak berlaku');await updateDoc(doc(db,"invites",inviteId),{status:'accepted'});await updateDoc(doc(db,"notifications",nid),{status:'accepted'});await updateDoc(doc(db,"groups",groupId),{members:arrayUnion(currentUser.uid)});await addDoc(collection(db,"notifications"),{title:'Diterima',body:`${currentUserModel?.username} menerima.`,targetUserId:is.data().fromUid,createdAt:serverTimestamp()});showPopup('Sukses','Bergabung');loadNotifications(); };
-    window.declineInvite = async (nid) => { const ns=await getDoc(doc(db,"notifications",nid));if(!ns.exists())return;const{inviteId}=ns.data();if(inviteId)await updateDoc(doc(db,"invites",inviteId),{status:'declined'});await updateDoc(doc(db,"notifications",nid),{status:'declined'});const is=await getDoc(doc(db,"invites",inviteId));if(is.exists())await addDoc(collection(db,"notifications"),{title:'Ditolak',body:`${currentUserModel?.username} menolak.`,targetUserId:is.data().fromUid,createdAt:serverTimestamp()});showPopup('Info','Ditolak');loadNotifications(); };
 
     window.showBlockedUsers = async () => { const u=await getDoc(doc(db,"users",currentUser.uid));const bl=u.data().blockedUsers||[];let ns=await Promise.all(bl.map(async uid=>{const uu=await getDoc(doc(db,"users",uid));return uu.exists()?uu.data().username:uid;}));const ov=document.createElement('div');ov.className='popup-overlay';ov.innerHTML=`<div class="popup"><h3>Diblokir</h3><div>${ns.map((n,i)=>`<div class="row" style="justify-content:space-between"><span>${n}</span><button class="btn btn-sm btn-danger" onclick="unblockUser('${bl[i]}')">Buka</button></div>`).join('')||'Tidak ada'}</div><button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="blockUserPrompt()">Blokir</button><div class="popup-buttons"><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div></div>`;document.body.appendChild(ov);ov.addEventListener('click',(e)=>{if(e.target===ov)ov.remove();}); };
     window.blockUserPrompt = async () => { const un=prompt('Username:');if(!un)return;const s=await getDocs(query(collection(db,"users"),where("username","==",un)));if(s.empty)return showPopup('Error','Tidak ditemukan');await updateDoc(doc(db,"users",currentUser.uid),{blockedUsers:arrayUnion(s.docs[0].id)});document.querySelector('.popup-overlay')?.remove();window.showBlockedUsers(); };
