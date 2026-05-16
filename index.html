@@ -21,7 +21,8 @@
       --shadow-lg:0 16px 44px rgba(0,0,0,0.8);
       --font-body:'Inter',system-ui,-apple-system,sans-serif;
       --font-display:'Orbitron','Rajdhani',sans-serif;
-      --radius-sm:10px; --radius-md:16px; --radius-lg:24px; --radius-full:9999px;
+      /* FIX: tambah --radius-xl yang sebelumnya hilang */
+      --radius-sm:10px; --radius-md:16px; --radius-lg:24px; --radius-xl:32px; --radius-full:9999px;
     }
     *::selection { background:rgba(200,200,200,0.18); color:#fff; }
     *::-webkit-scrollbar { width:5px; height:5px; }
@@ -72,6 +73,7 @@
     .status-dot.online { background:var(--accent-green); box-shadow:0 0 6px rgba(39,174,96,0.35); }
     .popup-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.86); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); display:flex; align-items:center; justify-content:center; z-index:1000; animation:fadeIn 0.22s ease; }
     @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    /* FIX: gunakan --radius-xl yang sudah didefinisikan */
     .popup { background:rgba(28,28,28,0.93); backdrop-filter:blur(26px); -webkit-backdrop-filter:blur(26px); border:1px solid rgba(255,255,255,0.055); border-radius:var(--radius-xl); padding:26px 24px; max-width:440px; width:92%; box-shadow:var(--shadow-lg); animation:popIn 0.4s cubic-bezier(0.34,1.56,0.64,1) both; }
     @keyframes popIn { from { transform:scale(0.65) translateY(35px); opacity:0; } to { transform:scale(1) translateY(0); opacity:1; } }
     .popup h3 { margin-bottom:14px; color:var(--text-bright); font-family:var(--font-display); letter-spacing:0.05em; }
@@ -97,6 +99,9 @@
     .link-preview { background:rgba(20,20,20,0.75); border:1px solid var(--border-subtle); border-radius:var(--radius-md); padding:10px 14px; margin-top:6px; display:flex; align-items:center; gap:10px; cursor:pointer; transition:all 0.22s; }
     .link-preview:hover { background:rgba(34,34,34,0.8); border-color:var(--border-medium); }
     .com-badge { display:inline-block; background:var(--accent-yellow); color:#000; font-weight:700; font-size:0.7rem; padding:2px 8px; border-radius:12px; margin-right:5px; letter-spacing:0.5px; }
+    /* FIX: box aturan debat */
+    .rules-box { background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius-md); padding:12px 16px; margin-bottom:12px; font-size:0.85rem; color:var(--text-secondary); white-space:pre-wrap; line-height:1.6; }
+    .rules-box strong { color:var(--text-dim); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-bottom:6px; }
 
     .bottom-nav {
       position:fixed; bottom:0; left:0; right:0;
@@ -208,20 +213,175 @@
           <button class="btn btn-outline" onclick="showPage('editPasswordPage')"><i class="fas fa-lock"></i> Ubah Password</button>
           <button class="btn btn-outline btn-danger" onclick="signOut()"><i class="fas fa-sign-out-alt"></i> Keluar</button>
           <button class="btn btn-outline" onclick="showBlockedUsers()" style="margin-top:5px"><i class="fas fa-ban"></i> Kelola Blokir</button>
+          <button id="adminBtn" class="btn btn-outline hidden" onclick="showPage('adminPage')" style="margin-top:5px"><i class="fas fa-shield-alt"></i> Panel Admin</button>
         </div>
       </div>
     </div>
 
     <!-- SUB PAGES -->
-    <div id="createGroupPage" class="page"><div class="header"><button onclick="showPage('groupsPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2>Buat Debat Tim</h2><span></span></div><div class="container"><input id="cgTitle" class="input" placeholder="Judul Debat"><div class="row" style="gap:10px"><input id="cgTeamAName" class="input" placeholder="Nama Tim A" style="flex:1" value="Tim A"></div><div style="margin:4px 0"><div class="row" style="justify-content:space-between"><span style="color:var(--text-dim)">Anggota Tim A</span><button class="btn btn-sm btn-outline" onclick="searchUserForTeam('teamA')"><i class="fas fa-plus"></i> Tambah</button></div><div id="teamAMembers" class="user-list"></div></div><div class="row" style="gap:10px;margin-top:10px"><input id="cgTeamBName" class="input" placeholder="Nama Tim B" style="flex:1" value="Tim B"></div><div style="margin:4px 0"><div class="row" style="justify-content:space-between"><span style="color:var(--text-dim)">Anggota Tim B</span><button class="btn btn-sm btn-outline" onclick="searchUserForTeam('teamB')"><i class="fas fa-plus"></i> Tambah</button></div><div id="teamBMembers" class="user-list"></div></div><input id="cgRoomLink" class="input" placeholder="Link Room Eksternal (opsional)"><textarea id="cgRules" class="input" rows="3" placeholder="Aturan Debat..."></textarea><button class="btn btn-primary" onclick="createTeamGroup()"><i class="fas fa-bolt"></i> Mulai Debat!</button></div></div>
-    <div id="groupDetailPage" class="page"><div class="header"><button onclick="showPage('groupsPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h3 id="gdTitle"></h3><div id="gdActions" class="row"></div></div><div id="gdTeams" class="container" style="padding-bottom:0;display:flex;gap:12px;flex-wrap:wrap"></div><div id="chatArea" class="container" style="flex:1;padding-top:0;display:flex;flex-direction:column;gap:4px"></div><div class="container" style="display:flex;gap:10px;padding-top:0;align-items:center"><input id="chatInput" class="input" placeholder="Ketik argumen..." style="margin:0;flex:1"><button class="btn btn-sm btn-outline" onclick="sendImageUrl()"><i class="fas fa-image"></i></button><button class="btn btn-sm btn-primary" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button></div></div>
-    <div id="editProfilePage" class="page"><div class="header"><button onclick="showPage('profilePage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2>Edit Profil</h2><span></span></div><div class="container" style="max-width:400px;margin:auto"><div class="profile-edit-preview" id="editPreview"><i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i></div><input id="epUrl" class="input" placeholder="URL Foto Profil" oninput="previewProfileImage()"><input id="epUser" class="input" placeholder="Username Baru"><small style="color:var(--text-dim);display:block;margin-bottom:8px">Username hanya bisa diganti setiap 30 hari</small><button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Simpan</button></div></div>
-    <div id="editPasswordPage" class="page"><div class="header"><button onclick="showPage('profilePage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2>Ubah Password</h2><span></span></div><div class="container" style="max-width:400px;margin:auto"><input id="epOldPass" class="input" type="password" placeholder="Password Lama"><input id="epNewPass" class="input" type="password" placeholder="Password Baru"><input id="epConfirmPass" class="input" type="password" placeholder="Konfirmasi Password Baru"><button class="btn btn-primary" onclick="changePassword()"><i class="fas fa-key"></i> Ubah Password</button></div></div>
-    <div id="lobbyPage" class="page container"><div class="header" style="background:transparent;box-shadow:none;border:none;padding:0 0 12px 0"><button onclick="showPage('dashboardPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2>Papan Pencarian</h2><button class="btn btn-sm btn-outline" onclick="showPage('createLobbyPage')">Pasang Iklan</button></div><div id="lobbyList"></div></div>
-    <div id="createLobbyPage" class="page container" style="justify-content:center"><div style="max-width:380px;width:100%"><h2>Cari Lawan</h2><input id="clChar" class="input" placeholder="Karakter"><input id="clTier" class="input" placeholder="Tier"><input id="clJudge" class="input" placeholder="Judge"><input id="clRoom" class="input" placeholder="Link Room"><button class="btn btn-primary" onclick="createLobby()"><i class="fas fa-bullhorn"></i> Pasang</button><button class="btn btn-outline" onclick="showPage('lobbyPage')">Kembali</button></div></div>
-    <div id="createCommunityPage" class="page container" style="justify-content:center"><div style="max-width:380px;width:100%"><h2>Buat Komunitas</h2><input id="comName" class="input" placeholder="Nama"><textarea id="comDesc" class="input" rows="3" placeholder="Deskripsi"></textarea><button class="btn btn-primary" onclick="createCommunity()"><i class="fas fa-plus"></i> Buat</button><button class="btn btn-outline" onclick="showPage('communitiesPage')">Kembali</button></div></div>
-    <div id="communityDetailPage" class="page"><div class="header"><button onclick="showPage('communitiesPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2 id="comDetailTitle"></h2><div id="comDetailActions"></div></div><div class="container" style="padding-bottom:0"><p id="comDetailDesc" style="color:var(--text-secondary);margin-bottom:10px"></p><div class="row" style="justify-content:space-between"><h4 style="color:var(--text-dim)">Anggota (<span id="comMemberCount">0</span>)</h4><button class="btn btn-sm btn-outline" onclick="toggleMemberList()"><i class="fas fa-list"></i></button></div><div id="comMemberList" style="margin-top:8px;display:none"></div></div><div id="comChatArea" class="container" style="flex:1;padding-top:0;display:flex;flex-direction:column;gap:4px"></div><div class="container" style="display:flex;gap:10px;padding-top:0;align-items:center"><input id="comChatInput" class="input" placeholder="Ketik pesan..." style="margin:0;flex:1"><button class="btn btn-sm btn-outline" onclick="sendCommunityImageUrl()"><i class="fas fa-image"></i></button><button class="btn btn-sm btn-primary" onclick="sendCommunityMessage()"><i class="fas fa-paper-plane"></i></button></div></div>
-    <div id="adminPage" class="page container"><div class="header" style="background:transparent;box-shadow:none;border:none;padding:0 0 12px 0"><button onclick="showPage('dashboardPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button><h2>Panel Admin</h2><span></span></div><div class="tabs"><div class="tab active" onclick="adminTab('announce')">Pengumuman</div><div class="tab" onclick="adminTab('notif')">Notifikasi</div><div class="tab" onclick="adminTab('users')">Pengguna</div></div><div id="adminContent"></div></div>
+    <!-- CREATE GROUP PAGE -->
+    <div id="createGroupPage" class="page">
+      <div class="header">
+        <button onclick="showPage('groupsPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h2>Buat Debat Tim</h2>
+        <span></span>
+      </div>
+      <div class="container">
+        <input id="cgTitle" class="input" placeholder="Judul Debat">
+        <div class="row" style="gap:10px">
+          <input id="cgTeamAName" class="input" placeholder="Nama Tim A" style="flex:1" value="Tim A">
+        </div>
+        <div style="margin:4px 0">
+          <div class="row" style="justify-content:space-between">
+            <span style="color:var(--text-dim)">Anggota Tim A</span>
+            <button class="btn btn-sm btn-outline" onclick="searchUserForTeam('teamA')"><i class="fas fa-plus"></i> Tambah</button>
+          </div>
+          <div id="teamAMembers" class="user-list"></div>
+        </div>
+        <div class="row" style="gap:10px;margin-top:10px">
+          <input id="cgTeamBName" class="input" placeholder="Nama Tim B" style="flex:1" value="Tim B">
+        </div>
+        <div style="margin:4px 0">
+          <div class="row" style="justify-content:space-between">
+            <span style="color:var(--text-dim)">Anggota Tim B</span>
+            <button class="btn btn-sm btn-outline" onclick="searchUserForTeam('teamB')"><i class="fas fa-plus"></i> Tambah</button>
+          </div>
+          <div id="teamBMembers" class="user-list"></div>
+        </div>
+        <input id="cgRoomLink" class="input" placeholder="Link Room Eksternal (opsional)">
+        <!-- FIX: textarea aturan dengan label yang jelas -->
+        <textarea id="cgRules" class="input" rows="3" placeholder="Aturan Debat (wajib diisi)..."></textarea>
+        <button class="btn btn-primary" onclick="createTeamGroup()"><i class="fas fa-bolt"></i> Mulai Debat!</button>
+      </div>
+    </div>
+
+    <!-- GROUP DETAIL PAGE -->
+    <div id="groupDetailPage" class="page">
+      <div class="header">
+        <button onclick="showPage('groupsPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h3 id="gdTitle"></h3>
+        <div id="gdActions" class="row"></div>
+      </div>
+      <!-- FIX: tampilkan aturan debat di atas -->
+      <div class="container" style="padding-bottom:0;flex:none">
+        <div id="gdRulesBox" class="rules-box hidden">
+          <strong><i class="fas fa-scroll" style="margin-right:4px"></i> Aturan Debat</strong>
+          <span id="gdRulesText"></span>
+        </div>
+        <div id="gdTeams" style="display:flex;gap:12px;flex-wrap:wrap"></div>
+      </div>
+      <div id="chatArea" class="container" style="flex:1;padding-top:8px;display:flex;flex-direction:column;gap:4px"></div>
+      <div class="container" style="display:flex;gap:10px;padding-top:0;padding-bottom:12px;align-items:center;flex:none">
+        <input id="chatInput" class="input" placeholder="Ketik argumen..." style="margin:0;flex:1">
+        <button class="btn btn-sm btn-outline" onclick="sendImageUrl()"><i class="fas fa-image"></i></button>
+        <button class="btn btn-sm btn-primary" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <!-- EDIT PROFILE PAGE -->
+    <div id="editProfilePage" class="page">
+      <div class="header">
+        <button onclick="showPage('profilePage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h2>Edit Profil</h2>
+        <span></span>
+      </div>
+      <div class="container" style="max-width:400px;margin:auto">
+        <div class="profile-edit-preview" id="editPreview"><i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i></div>
+        <input id="epUrl" class="input" placeholder="URL Foto Profil" oninput="previewProfileImage()">
+        <input id="epUser" class="input" placeholder="Username Baru">
+        <small style="color:var(--text-dim);display:block;margin-bottom:8px">Username hanya bisa diganti setiap 30 hari</small>
+        <button class="btn btn-primary" onclick="saveProfile()"><i class="fas fa-save"></i> Simpan</button>
+      </div>
+    </div>
+
+    <!-- EDIT PASSWORD PAGE -->
+    <div id="editPasswordPage" class="page">
+      <div class="header">
+        <button onclick="showPage('profilePage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h2>Ubah Password</h2>
+        <span></span>
+      </div>
+      <div class="container" style="max-width:400px;margin:auto">
+        <input id="epOldPass" class="input" type="password" placeholder="Password Lama">
+        <input id="epNewPass" class="input" type="password" placeholder="Password Baru">
+        <input id="epConfirmPass" class="input" type="password" placeholder="Konfirmasi Password Baru">
+        <button class="btn btn-primary" onclick="changePassword()"><i class="fas fa-key"></i> Ubah Password</button>
+      </div>
+    </div>
+
+    <!-- LOBBY PAGE -->
+    <div id="lobbyPage" class="page">
+      <div class="header">
+        <button onclick="showPage('dashboardPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h2>Papan Pencarian</h2>
+        <button class="btn btn-sm btn-outline" onclick="showPage('createLobbyPage')">Pasang Iklan</button>
+      </div>
+      <div class="container"><div id="lobbyList"></div></div>
+    </div>
+
+    <!-- CREATE LOBBY PAGE -->
+    <div id="createLobbyPage" class="page container" style="justify-content:center">
+      <div style="max-width:380px;width:100%">
+        <h2 style="margin-bottom:16px">Cari Lawan</h2>
+        <input id="clChar" class="input" placeholder="Karakter">
+        <input id="clTier" class="input" placeholder="Tier">
+        <input id="clJudge" class="input" placeholder="Judge">
+        <input id="clRoom" class="input" placeholder="Link Room">
+        <button class="btn btn-primary" onclick="createLobby()"><i class="fas fa-bullhorn"></i> Pasang</button>
+        <button class="btn btn-outline" onclick="showPage('lobbyPage')">Kembali</button>
+      </div>
+    </div>
+
+    <!-- CREATE COMMUNITY PAGE -->
+    <div id="createCommunityPage" class="page container" style="justify-content:center">
+      <div style="max-width:380px;width:100%">
+        <h2 style="margin-bottom:16px">Buat Komunitas</h2>
+        <input id="comName" class="input" placeholder="Nama">
+        <textarea id="comDesc" class="input" rows="3" placeholder="Deskripsi"></textarea>
+        <button class="btn btn-primary" onclick="createCommunity()"><i class="fas fa-plus"></i> Buat</button>
+        <button class="btn btn-outline" onclick="showPage('communitiesPage')">Kembali</button>
+      </div>
+    </div>
+
+    <!-- COMMUNITY DETAIL PAGE -->
+    <div id="communityDetailPage" class="page">
+      <div class="header">
+        <button onclick="showPage('communitiesPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h2 id="comDetailTitle"></h2>
+        <div id="comDetailActions"></div>
+      </div>
+      <div class="container" style="padding-bottom:0;flex:none">
+        <p id="comDetailDesc" style="color:var(--text-secondary);margin-bottom:10px"></p>
+        <div class="row" style="justify-content:space-between">
+          <h4 style="color:var(--text-dim)">Anggota (<span id="comMemberCount">0</span>)</h4>
+          <button class="btn btn-sm btn-outline" onclick="toggleMemberList()"><i class="fas fa-list"></i></button>
+        </div>
+        <div id="comMemberList" style="margin-top:8px;display:none"></div>
+      </div>
+      <div id="comChatArea" class="container" style="flex:1;padding-top:8px;display:flex;flex-direction:column;gap:4px"></div>
+      <div class="container" style="display:flex;gap:10px;padding-top:0;padding-bottom:12px;align-items:center;flex:none">
+        <input id="comChatInput" class="input" placeholder="Ketik pesan..." style="margin:0;flex:1">
+        <button class="btn btn-sm btn-outline" onclick="sendCommunityImageUrl()"><i class="fas fa-image"></i></button>
+        <button class="btn btn-sm btn-primary" onclick="sendCommunityMessage()"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+
+    <!-- ADMIN PAGE -->
+    <div id="adminPage" class="page">
+      <div class="header">
+        <button onclick="showPage('dashboardPage')" class="icon-btn"><i class="fas fa-arrow-left"></i></button>
+        <h2>Panel Admin</h2>
+        <span></span>
+      </div>
+      <div class="container">
+        <div class="tabs">
+          <div class="tab active" onclick="adminTab('announce', this)">Pengumuman</div>
+          <div class="tab" onclick="adminTab('notif', this)">Notifikasi</div>
+          <div class="tab" onclick="adminTab('users', this)">Pengguna</div>
+        </div>
+        <div id="adminContent"></div>
+      </div>
+    </div>
 
     <!-- BOTTOM NAVIGATION -->
     <div id="bottomNav" class="bottom-nav hidden">
@@ -297,7 +457,11 @@
       if (id === 'notifPage') loadNotifications();
       if (id === 'communitiesPage') loadCommunities();
       if (id === 'communityDetailPage') loadCommunityDetail();
-      if (id === 'adminPage') adminTab('announce');
+      // FIX: adminTab sekarang pakai parameter tab & element, bukan event global
+      if (id === 'adminPage') {
+        const firstTab = document.querySelector('#adminPage .tab');
+        adminTab('announce', firstTab);
+      }
       if (id === 'createGroupPage') { teamASelected = []; teamBSelected = []; renderTeamLists(); }
     };
 
@@ -310,7 +474,10 @@
     window.register = async () => {
       const email=document.getElementById('regEmail').value, pass=document.getElementById('regPass').value, username=document.getElementById('regUser').value;
       if(!email||!pass||!username) return showPopup('Error','Isi semua field');
-      try { const res=await createUserWithEmailAndPassword(auth,email,pass); await setDoc(doc(db,"users",res.user.uid),{email,username,wins:0,losses:0,lastUsernameChange:serverTimestamp(),lastSeen:serverTimestamp(),photoURL:null,role:'user',banned:false,blockedUsers:[],lastInviteSent:null}); } catch(e) { showPopup('Daftar Gagal',e.message); }
+      try {
+        const res=await createUserWithEmailAndPassword(auth,email,pass);
+        await setDoc(doc(db,"users",res.user.uid),{email,username,wins:0,losses:0,lastUsernameChange:serverTimestamp(),lastSeen:serverTimestamp(),photoURL:null,role:'user',banned:false,blockedUsers:[],lastInviteSent:null});
+      } catch(e) { showPopup('Daftar Gagal',e.message); }
     };
     window.signOut = () => signOut(auth);
 
@@ -340,8 +507,27 @@
       if(!title||!rules) return showPopup('Error','Judul dan aturan wajib diisi');
       if(teamASelected.length===0||teamBSelected.length===0) return showPopup('Error','Tambahkan minimal 1 anggota per tim');
       const allMembers=[...new Set([...teamASelected.map(u=>u.uid),...teamBSelected.map(u=>u.uid),currentUser.uid])];
-      const docRef = await addDoc(collection(db,"groups"),{title,rules,teamA:{name:document.getElementById('cgTeamAName').value.trim()||'Tim A',members:teamASelected.map(u=>u.uid)},teamB:{name:document.getElementById('cgTeamBName').value.trim()||'Tim B',members:teamBSelected.map(u=>u.uid)},externalRoomLink:roomLink,idJudgement:currentUser.uid,status:'active',resultsDeclared:false,winnerId:null,createdAt:serverTimestamp(),members:allMembers,pendingMembers:[]});
-      await addDoc(collection(db,"groups",docRef.id,"messages"),{senderId:'system',senderUsername:'System',text:`Grup Debat "${title}" berhasil dibuat! Silakan bergabung dan mulai berdebat.`,isSystem:true,timestamp:serverTimestamp()});
+      const docRef = await addDoc(collection(db,"groups"),{
+        title, rules,
+        teamA:{name:document.getElementById('cgTeamAName').value.trim()||'Tim A',members:teamASelected.map(u=>u.uid)},
+        teamB:{name:document.getElementById('cgTeamBName').value.trim()||'Tim B',members:teamBSelected.map(u=>u.uid)},
+        externalRoomLink:roomLink,
+        idJudgement:currentUser.uid,
+        status:'active',
+        resultsDeclared:false,
+        winnerId:null,
+        createdAt:serverTimestamp(),
+        members:allMembers,
+        pendingMembers:[]
+      });
+      // FIX: system message dikirim dengan isSystem:true dan senderUsername 'System'
+      await addDoc(collection(db,"groups",docRef.id,"messages"),{
+        senderId:'system',
+        senderUsername:'System',
+        text:`Grup Debat "${title}" berhasil dibuat! Aturan: ${rules}`,
+        isSystem:true,
+        timestamp:serverTimestamp()
+      });
       teamASelected=[]; teamBSelected=[];
       openGroup(docRef.id);
     };
@@ -349,7 +535,7 @@
     async function loadDashboard() {
       const fiveMin=new Date(Date.now()-300000);
       onSnapshot(query(collection(db,"users"),where("lastSeen",">=",fiveMin)),snap=>{document.getElementById('onlineCount').innerHTML=`<i class="fas fa-circle pulse" style="color:#27ae60;font-size:9px"></i> ${snap.size} online`;});
-      onSnapshot(query(collection(db,"announcements"),orderBy("createdAt","desc"),limit(1)),snap=>{const b=document.getElementById('announceBanner');if(snap.empty){b.classList.add('hidden');return}b.innerHTML=`<b style="color:#ccc">${snap.docs[0].data().title}</b><br><span style="color:#aaa">${snap.docs[0].data().body}</span>`;b.classList.remove('hidden');});
+      onSnapshot(query(collection(db,"announcements"),orderBy("createdAt","desc"),limit(1)),snap=>{const b=document.getElementById('announceBanner');if(snap.empty){b.classList.add('hidden');return;}b.innerHTML=`<b style="color:#ccc">${snap.docs[0].data().title}</b><br><span style="color:#aaa">${snap.docs[0].data().body}</span>`;b.classList.remove('hidden');});
       onSnapshot(query(collection(db,"groups"),where("status","==","active"),orderBy("createdAt","desc"),limit(3)),snap=>{document.getElementById('recentGroupList').innerHTML=snap.docs.map(d=>{const g=d.data();g.id=d.id;return`<div class="card" onclick="openGroup('${g.id}')" style="cursor:pointer"><b>${g.title}</b><br><small style="color:var(--text-dim)">${g.teamA?.name||'Tim A'} vs ${g.teamB?.name||'Tim B'}</small></div>`}).join('')||'<p style="color:var(--text-dim)">Belum ada grup</p>';});
     }
 
@@ -360,36 +546,112 @@
     window.openGroup = (id) => { currentGroupId = id; showPage('groupDetailPage'); };
 
     async function loadGroupDetail() {
-      if(!currentGroupId)return;const snap=await getDoc(doc(db,"groups",currentGroupId));if(!snap.exists())return showPage('groupsPage');const g=snap.data();g.id=snap.id;
+      if(!currentGroupId)return;
+      const snap=await getDoc(doc(db,"groups",currentGroupId));
+      if(!snap.exists())return showPage('groupsPage');
+      const g=snap.data(); g.id=snap.id;
       document.getElementById('gdTitle').innerText=g.title;
+
+      // FIX: tampilkan aturan debat jika ada
+      const rulesBox = document.getElementById('gdRulesBox');
+      const rulesText = document.getElementById('gdRulesText');
+      if(g.rules) {
+        rulesText.innerText = g.rules;
+        rulesBox.classList.remove('hidden');
+      } else {
+        rulesBox.classList.add('hidden');
+      }
+
       document.getElementById('gdTeams').innerHTML=`<div class="card" style="flex:1;min-width:150px"><b>${g.teamA?.name||'Tim A'}</b><div class="user-list">${(g.teamA?.members||[]).map(uid=>`<span class="user-chip">${uid.substring(0,8)}</span>`).join('')||'Kosong'}</div></div><div class="card" style="flex:1;min-width:150px"><b>${g.teamB?.name||'Tim B'}</b><div class="user-list">${(g.teamB?.members||[]).map(uid=>`<span class="user-chip">${uid.substring(0,8)}</span>`).join('')||'Kosong'}</div></div>`;
-      let act='';if(g.externalRoomLink)act+=`<a href="${g.externalRoomLink}" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Room</a>`;
+      let act='';
+      if(g.externalRoomLink)act+=`<a href="${g.externalRoomLink}" target="_blank" class="btn btn-sm btn-outline"><i class="fas fa-external-link-alt"></i> Room</a>`;
       if(currentUser.uid===g.idJudgement&&g.status==='active'){act+=`<button class="btn btn-sm btn-primary" onclick="finishDebate('${g.id}')">Selesai Debat</button>`;}
       document.getElementById('gdActions').innerHTML=act;
-      onSnapshot(query(collection(db,"groups",currentGroupId,"messages"),orderBy("timestamp")),snap=>{const ca=document.getElementById('chatArea');ca.innerHTML=snap.docs.map(d=>{const m=d.data();let im='';if(m.imageUrl)im=`<img src="${m.imageUrl}" style="max-width:180px;margin-top:6px;border-radius:12px" loading="lazy">`;else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.8rem">${match[0]}</span><i class="fas fa-external-link-alt" style="font-size:0.7rem"></i></div>`;}return`<div class="chat-bubble ${m.isSystem?'system':(m.senderId===currentUser.uid?'my-msg':'other-msg')}"><small style="color:var(--text-dim);font-weight:600">${m.senderUsername}</small><br>${m.text}${im}</div>`}).join('');ca.scrollTop=ca.scrollHeight;});
+      onSnapshot(query(collection(db,"groups",currentGroupId,"messages"),orderBy("timestamp")),snap=>{
+        const ca=document.getElementById('chatArea');
+        ca.innerHTML=snap.docs.map(d=>{
+          const m=d.data();
+          let im='';
+          if(m.imageUrl) im=`<img src="${m.imageUrl}" style="max-width:180px;margin-top:6px;border-radius:12px" loading="lazy">`;
+          else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.8rem">${match[0]}</span><i class="fas fa-external-link-alt" style="font-size:0.7rem"></i></div>`;}
+          return`<div class="chat-bubble ${m.isSystem?'system':(m.senderId===currentUser.uid?'my-msg':'other-msg')}"><small style="color:var(--text-dim);font-weight:600">${m.senderUsername}</small><br>${m.text}${im}</div>`;
+        }).join('');
+        ca.scrollTop=ca.scrollHeight;
+      });
     }
-    window.finishDebate = async (gid) => { const snap=await getDoc(doc(db,"groups",gid));if(!snap.exists())return;const g=snap.data();const w=prompt(`Pilih pemenang:\nA. ${g.teamA.name}\nB. ${g.teamB.name}`);if(!w||(w.toUpperCase()!=='A'&&w.toUpperCase()!=='B'))return;const wt=w.toUpperCase()==='A'?g.teamA:g.teamB,lt=w.toUpperCase()==='A'?g.teamB:g.teamA;const batch=writeBatch(db);batch.update(doc(db,"groups",gid),{status:'finished',winnerId:wt.name});wt.members.forEach(uid=>batch.update(doc(db,"users",uid),{wins:increment(1)}));lt.members.forEach(uid=>batch.update(doc(db,"users",uid),{losses:increment(1)}));await batch.commit();showPopup('Sukses','Debat selesai');showPage('groupsPage'); };
 
-    async function loadCommunities() { onSnapshot(query(collection(db,"communities"),orderBy("createdAt","desc")),snap=>{document.getElementById('communityList').innerHTML=snap.docs.map(d=>{const c=d.data();return`<div class="card" onclick="openCommunity('${d.id}')"><b>${c.name}</b><br><small>${c.members?.length||0} anggota</small></div>`}).join('')||'<p style="color:var(--text-dim)">Belum ada komunitas</p>';}); }
+    window.finishDebate = async (gid) => {
+      const snap=await getDoc(doc(db,"groups",gid));
+      if(!snap.exists())return;
+      const g=snap.data();
+      const w=prompt(`Pilih pemenang:\nA. ${g.teamA.name}\nB. ${g.teamB.name}`);
+      if(!w||(w.toUpperCase()!=='A'&&w.toUpperCase()!=='B'))return;
+      const wt=w.toUpperCase()==='A'?g.teamA:g.teamB, lt=w.toUpperCase()==='A'?g.teamB:g.teamA;
+      const batch=writeBatch(db);
+      batch.update(doc(db,"groups",gid),{status:'finished',winnerId:wt.name});
+      wt.members.forEach(uid=>batch.update(doc(db,"users",uid),{wins:increment(1)}));
+      lt.members.forEach(uid=>batch.update(doc(db,"users",uid),{losses:increment(1)}));
+      await batch.commit();
+      showPopup('Sukses','Debat selesai');
+      showPage('groupsPage');
+    };
+
+    async function loadCommunities() {
+      onSnapshot(query(collection(db,"communities"),orderBy("createdAt","desc")),snap=>{document.getElementById('communityList').innerHTML=snap.docs.map(d=>{const c=d.data();return`<div class="card" onclick="openCommunity('${d.id}')"><b>${c.name}</b><br><small>${c.members?.length||0} anggota</small></div>`}).join('')||'<p style="color:var(--text-dim)">Belum ada komunitas</p>';});
+    }
     window.openCommunity = (id) => { currentCommunityId = id; showPage('communityDetailPage'); };
-    window.createCommunity = async () => { const name=document.getElementById('comName').value.trim(),desc=document.getElementById('comDesc').value.trim();if(!name)return;await addDoc(collection(db,"communities"),{name,desc,adminId:currentUser.uid,admins:[currentUser.uid],members:[currentUser.uid],createdAt:serverTimestamp(),chatLocked:false});showPage('communitiesPage'); };
+    window.createCommunity = async () => {
+      const name=document.getElementById('comName').value.trim(), desc=document.getElementById('comDesc').value.trim();
+      if(!name)return;
+      await addDoc(collection(db,"communities"),{name,desc,adminId:currentUser.uid,admins:[currentUser.uid],members:[currentUser.uid],createdAt:serverTimestamp(),chatLocked:false});
+      showPage('communitiesPage');
+    };
+
     async function loadCommunityDetail() {
-      if(!currentCommunityId)return;const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return showPage('communitiesPage');const c=snap.data();
-      document.getElementById('comDetailTitle').innerText=c.name;document.getElementById('comDetailDesc').innerText=c.desc||'';document.getElementById('comMemberCount').innerText=c.members?.length||0;
-      let memberHtml='';for(const uid of c.members){const u=await getDoc(doc(db,"users",uid));const uname=u.exists()?u.data().username:uid.substring(0,8);const isOwner=uid===c.adminId;const isAdmin=c.admins?.includes(uid);memberHtml+=`<div class="row" style="justify-content:space-between"><span>${uname}${isOwner?' <small style="color:var(--accent-yellow)">Owner</small>':isAdmin?' <small style="color:var(--accent-green)">Admin</small>':''}</span>${c.adminId===currentUser.uid&&uid!==currentUser.uid?`<div style="display:flex;gap:4px">${!isAdmin?`<button class="btn btn-sm btn-outline" onclick="addCommunityAdmin('${uid}')">Jadikan Admin</button>`:`<button class="btn btn-sm btn-outline" onclick="removeCommunityAdmin('${uid}')">Hapus Admin</button>`}<button class="btn btn-sm btn-danger" onclick="kickCommunityMember('${uid}')">Kick</button></div>`:''}</div>`;}
+      if(!currentCommunityId)return;
+      const snap=await getDoc(doc(db,"communities",currentCommunityId));
+      if(!snap.exists())return showPage('communitiesPage');
+      const c=snap.data();
+      document.getElementById('comDetailTitle').innerText=c.name;
+      document.getElementById('comDetailDesc').innerText=c.desc||'';
+      document.getElementById('comMemberCount').innerText=c.members?.length||0;
+      let memberHtml='';
+      for(const uid of c.members){
+        const u=await getDoc(doc(db,"users",uid));
+        const uname=u.exists()?u.data().username:uid.substring(0,8);
+        const isOwner=uid===c.adminId;
+        const isAdmin=c.admins?.includes(uid);
+        memberHtml+=`<div class="row" style="justify-content:space-between;padding:4px 0"><span>${uname}${isOwner?' <small style="color:var(--accent-yellow)">Owner</small>':isAdmin?' <small style="color:var(--accent-green)">Admin</small>':''}</span>${c.adminId===currentUser.uid&&uid!==currentUser.uid?`<div style="display:flex;gap:4px">${!isAdmin?`<button class="btn btn-sm btn-outline" onclick="addCommunityAdmin('${uid}')">Jadikan Admin</button>`:`<button class="btn btn-sm btn-outline" onclick="removeCommunityAdmin('${uid}')">Hapus Admin</button>`}<button class="btn btn-sm btn-danger" onclick="kickCommunityMember('${uid}')">Kick</button></div>`:''}</div>`;
+      }
       document.getElementById('comMemberList').innerHTML=memberHtml;
-      const isOwner = c.adminId === currentUser.uid; const isAdmin = c.admins?.includes(currentUser.uid);
+      const isOwner = c.adminId === currentUser.uid;
+      const isAdmin = c.admins?.includes(currentUser.uid);
       let actions = '';
-      if (isOwner || isAdmin) { actions += `<button class="btn btn-sm btn-outline" onclick="inviteToCommunity()"><i class="fas fa-user-plus"></i> Undang</button><button class="btn btn-sm btn-outline" onclick="toggleCommunityChatLock()"><i class="fas ${c.chatLocked?'fa-lock-open':'fa-lock'}"></i> ${c.chatLocked?'Buka Chat':'Kunci Chat'}</button>`; }
-      else if (!c.members.includes(currentUser.uid)) { actions += `<button class="btn btn-sm btn-primary" onclick="joinCommunity('${currentCommunityId}')">Bergabung</button>`; }
+      if (isOwner || isAdmin) {
+        actions += `<button class="btn btn-sm btn-outline" onclick="inviteToCommunity()"><i class="fas fa-user-plus"></i> Undang</button><button class="btn btn-sm btn-outline" onclick="toggleCommunityChatLock()"><i class="fas ${c.chatLocked?'fa-lock-open':'fa-lock'}"></i> ${c.chatLocked?'Buka Chat':'Kunci Chat'}</button>`;
+      } else if (!c.members.includes(currentUser.uid)) {
+        actions += `<button class="btn btn-sm btn-primary" onclick="joinCommunity('${currentCommunityId}')">Bergabung</button>`;
+      }
       document.getElementById('comDetailActions').innerHTML = actions;
-      const chatLocked = c.chatLocked || false; const canSend = isOwner || isAdmin || !chatLocked;
+      const chatLocked = c.chatLocked || false;
+      const canSend = isOwner || isAdmin || !chatLocked;
       document.getElementById('comChatInput').disabled = !canSend;
       document.querySelector('#communityDetailPage .btn-primary').disabled = !canSend;
       document.querySelector('#communityDetailPage .btn-outline[onclick*="sendCommunityImageUrl"]').disabled = !canSend;
       document.getElementById('comChatInput').placeholder = (chatLocked && !canSend) ? 'Chat dikunci oleh admin' : 'Ketik pesan...';
-      onSnapshot(query(collection(db,"communities",currentCommunityId,"messages"),orderBy("timestamp")),snap=>{const ca=document.getElementById('comChatArea');ca.innerHTML=snap.docs.map(d=>{const m=d.data();let im='';if(m.imageUrl)im=`<img src="${m.imageUrl}" style="max-width:160px;margin-top:5px;border-radius:10px">`;else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem">${match[0]}</span></div>`;}return`<div class="chat-bubble ${m.senderId===currentUser.uid?'my-msg':'other-msg'}"><small style="color:var(--text-dim);font-weight:600"><span class="com-badge">${c.name}</span>${m.senderUsername}</small><br>${m.text}${im}</div>`}).join('');ca.scrollTop=ca.scrollHeight;});
+      onSnapshot(query(collection(db,"communities",currentCommunityId,"messages"),orderBy("timestamp")),snap=>{
+        const ca=document.getElementById('comChatArea');
+        ca.innerHTML=snap.docs.map(d=>{
+          const m=d.data();
+          let im='';
+          if(m.imageUrl) im=`<img src="${m.imageUrl}" style="max-width:160px;margin-top:5px;border-radius:10px">`;
+          else{const match=m.text?.match(/(https?:\/\/[^\s]+)/);if(match)im=`<div class="link-preview" onclick="window.open('${match[0]}','_blank')"><i class="fas fa-link" style="color:var(--text-secondary)"></i><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:0.75rem">${match[0]}</span></div>`;}
+          return`<div class="chat-bubble ${m.senderId===currentUser.uid?'my-msg':'other-msg'}"><small style="color:var(--text-dim);font-weight:600"><span class="com-badge">${c.name}</span>${m.senderUsername}</small><br>${m.text}${im}</div>`;
+        }).join('');
+        ca.scrollTop=ca.scrollHeight;
+      });
     }
+
     window.toggleMemberList = () => { const el=document.getElementById('comMemberList');el.style.display=el.style.display==='none'?'block':'none'; };
     window.kickCommunityMember = async (uid) => { if(!confirm('Kick?'))return;await updateDoc(doc(db,"communities",currentCommunityId),{members:arrayRemove(uid),admins:arrayRemove(uid)});loadCommunityDetail(); };
     window.inviteToCommunity = async () => { const uname=prompt('Username:');if(!uname)return;const snap=await getDocs(query(collection(db,"users"),where("username","==",uname)));if(snap.empty)return showPopup('Error','Tidak ditemukan');await updateDoc(doc(db,"communities",currentCommunityId),{members:arrayUnion(snap.docs[0].id)});loadCommunityDetail(); };
@@ -397,33 +659,148 @@
     window.addCommunityAdmin = async (uid) => { await updateDoc(doc(db,"communities",currentCommunityId),{admins:arrayUnion(uid)});loadCommunityDetail(); };
     window.removeCommunityAdmin = async (uid) => { await updateDoc(doc(db,"communities",currentCommunityId),{admins:arrayRemove(uid)});loadCommunityDetail(); };
     window.toggleCommunityChatLock = async () => { const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return;const currentLocked=snap.data().chatLocked||false;await updateDoc(doc(db,"communities",currentCommunityId),{chatLocked:!currentLocked});loadCommunityDetail(); };
-    window.sendCommunityMessage = async () => { if(!currentCommunityId)return;const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return;const c=snap.data();const canSend = c.adminId===currentUser.uid || c.admins?.includes(currentUser.uid) || !c.chatLocked;if(!canSend) { showPopup('Terkunci','Hanya admin yang bisa mengirim pesan'); return; } const input=document.getElementById('comChatInput');if(!input.value.trim())return;await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),timestamp:serverTimestamp()});input.value=''; };
-    window.sendCommunityImageUrl = async () => { if(!currentCommunityId)return;const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return;const c=snap.data();const canSend = c.adminId===currentUser.uid || c.admins?.includes(currentUser.uid) || !c.chatLocked;if(!canSend) { showPopup('Terkunci','Hanya admin yang bisa mengirim gambar'); return; } const url=prompt('URL gambar:');if(!url)return;await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,timestamp:serverTimestamp()}); };
+    window.sendCommunityMessage = async () => { if(!currentCommunityId)return;const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return;const c=snap.data();const canSend = c.adminId===currentUser.uid || c.admins?.includes(currentUser.uid) || !c.chatLocked;if(!canSend){showPopup('Terkunci','Hanya admin yang bisa mengirim pesan');return;}const input=document.getElementById('comChatInput');if(!input.value.trim())return;await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),timestamp:serverTimestamp()});input.value=''; };
+    window.sendCommunityImageUrl = async () => { if(!currentCommunityId)return;const snap=await getDoc(doc(db,"communities",currentCommunityId));if(!snap.exists())return;const c=snap.data();const canSend = c.adminId===currentUser.uid || c.admins?.includes(currentUser.uid) || !c.chatLocked;if(!canSend){showPopup('Terkunci','Hanya admin yang bisa mengirim gambar');return;}const url=prompt('URL gambar:');if(!url)return;await addDoc(collection(db,"communities",currentCommunityId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,timestamp:serverTimestamp()}); };
 
-    function loadLobbies() { onSnapshot(query(collection(db,"lobbies"),orderBy("createdAt","desc")),snap=>{document.getElementById('lobbyList').innerHTML=snap.docs.map(d=>{const l=d.data();return`<div class="card"><b>${l.creatorUsername} mencari</b><br>${l.characterNeeded} (${l.tier})${l.judgeName?`<br>Judge: ${l.judgeName}`:''}${l.roomLink?`<br><a href="${l.roomLink}" target="_blank" class="external-link">Room</a>`:''}</div>`}).join('')||'<p>Belum ada iklan</p>';}); }
-    window.createLobby = async () => { const c=document.getElementById('clChar').value.trim(),t=document.getElementById('clTier').value.trim();if(!c||!t)return;await addDoc(collection(db,"lobbies"),{creatorId:currentUser.uid,creatorUsername:currentUserModel?.username||'User',characterNeeded:c,tier:t,judgeName:document.getElementById('clJudge').value.trim()||null,roomLink:document.getElementById('clRoom').value.trim()||null,createdAt:serverTimestamp()});showPage('lobbyPage'); };
+    function loadLobbies() {
+      onSnapshot(query(collection(db,"lobbies"),orderBy("createdAt","desc")),snap=>{
+        document.getElementById('lobbyList').innerHTML=snap.docs.map(d=>{
+          const l=d.data();
+          return`<div class="card"><b>${l.creatorUsername} mencari</b><br>${l.characterNeeded} (${l.tier})${l.judgeName?`<br>Judge: ${l.judgeName}`:''}${l.roomLink?`<br><a href="${l.roomLink}" target="_blank" class="external-link">Room</a>`:''}</div>`;
+        }).join('')||'<p>Belum ada iklan</p>';
+      });
+    }
+    window.createLobby = async () => {
+      const c=document.getElementById('clChar').value.trim(), t=document.getElementById('clTier').value.trim();
+      if(!c||!t)return;
+      await addDoc(collection(db,"lobbies"),{creatorId:currentUser.uid,creatorUsername:currentUserModel?.username||'User',characterNeeded:c,tier:t,judgeName:document.getElementById('clJudge').value.trim()||null,roomLink:document.getElementById('clRoom').value.trim()||null,createdAt:serverTimestamp()});
+      showPage('lobbyPage');
+    };
 
-    async function loadProfile() { if(!currentUser)return;const snap=await getDoc(doc(db,"users",currentUser.uid));if(!snap.exists())return;const u=snap.data();document.getElementById('profileName').innerText=u.username;document.getElementById('profileEmail').innerText=currentUser.email;document.getElementById('profileWins').innerText=u.wins||0;document.getElementById('profileLosses').innerText=u.losses||0;document.getElementById('profilePic').innerHTML=u.photoURL?`<img src="${u.photoURL}" alt="profile">`:(u.username[0]||'?').toUpperCase(); }
-    function loadEditProfile() { if(!currentUserModel)return;document.getElementById('epUrl').value=currentUserModel.photoURL||'';document.getElementById('epUser').value=currentUserModel.username||'';previewProfileImage(); }
-    window.previewProfileImage = () => { const url=document.getElementById('epUrl')?.value?.trim();const preview=document.getElementById('editPreview');if(!preview)return;if(url)preview.innerHTML=`<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-camera\\' style=\\'color:#888;font-size:1.8rem\\'></i>'">`;else preview.innerHTML=`<i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i>`; };
-    window.saveProfile = async () => { const name=document.getElementById('epUser').value.trim(),url=document.getElementById('epUrl').value.trim();if(!name)return showPopup('Error','Username kosong');const last=currentUserModel?.lastUsernameChange?.toDate();if(last&&(new Date()-last)<30*24*60*60*1000)return showPopup('Error','30 hari');const up={username:name};if(url)up.photoURL=url;if(name!==currentUserModel?.username)up.lastUsernameChange=serverTimestamp();await updateDoc(doc(db,"users",currentUser.uid),up);currentUserModel={...currentUserModel,...up};showPopup('Sukses','Profil diperbarui');showPage('profilePage'); };
-    window.changePassword = async () => { const oldPass=document.getElementById('epOldPass').value,newPass=document.getElementById('epNewPass').value,confirmPass=document.getElementById('epConfirmPass').value;if(!oldPass||!newPass||!confirmPass)return showPopup('Error','Isi semua');if(newPass!==confirmPass)return showPopup('Error','Password baru tidak cocok');if(newPass.length<6)return showPopup('Error','Minimal 6 karakter');try{const credential=EmailAuthProvider.credential(currentUser.email,oldPass);await reauthenticateWithCredential(currentUser,credential);await updatePassword(currentUser,newPass);showPopup('Sukses','Password diubah');showPage('profilePage');}catch(e){showPopup('Gagal','Password lama salah');} };
+    async function loadProfile() {
+      if(!currentUser)return;
+      const snap=await getDoc(doc(db,"users",currentUser.uid));
+      if(!snap.exists())return;
+      const u=snap.data();
+      document.getElementById('profileName').innerText=u.username;
+      document.getElementById('profileEmail').innerText=currentUser.email;
+      document.getElementById('profileWins').innerText=u.wins||0;
+      document.getElementById('profileLosses').innerText=u.losses||0;
+      document.getElementById('profilePic').innerHTML=u.photoURL?`<img src="${u.photoURL}" alt="profile">`:(u.username[0]||'?').toUpperCase();
+    }
+    function loadEditProfile() {
+      if(!currentUserModel)return;
+      document.getElementById('epUrl').value=currentUserModel.photoURL||'';
+      document.getElementById('epUser').value=currentUserModel.username||'';
+      previewProfileImage();
+    }
+    window.previewProfileImage = () => {
+      const url=document.getElementById('epUrl')?.value?.trim();
+      const preview=document.getElementById('editPreview');
+      if(!preview)return;
+      if(url) preview.innerHTML=`<img src="${url}" alt="preview" onerror="this.parentElement.innerHTML='<i class=\\'fas fa-camera\\' style=\\'color:#888;font-size:1.8rem\\'></i>'">`;
+      else preview.innerHTML=`<i class="fas fa-camera" style="color:#888;font-size:1.8rem"></i>`;
+    };
+    window.saveProfile = async () => {
+      const name=document.getElementById('epUser').value.trim(), url=document.getElementById('epUrl').value.trim();
+      if(!name)return showPopup('Error','Username kosong');
+      const last=currentUserModel?.lastUsernameChange?.toDate();
+      if(last&&(new Date()-last)<30*24*60*60*1000)return showPopup('Error','Ganti username bisa setiap 30 hari');
+      const up={username:name};
+      if(url)up.photoURL=url;
+      if(name!==currentUserModel?.username)up.lastUsernameChange=serverTimestamp();
+      await updateDoc(doc(db,"users",currentUser.uid),up);
+      currentUserModel={...currentUserModel,...up};
+      showPopup('Sukses','Profil diperbarui');
+      showPage('profilePage');
+    };
+    window.changePassword = async () => {
+      const oldPass=document.getElementById('epOldPass').value, newPass=document.getElementById('epNewPass').value, confirmPass=document.getElementById('epConfirmPass').value;
+      if(!oldPass||!newPass||!confirmPass)return showPopup('Error','Isi semua field');
+      if(newPass!==confirmPass)return showPopup('Error','Password baru tidak cocok');
+      if(newPass.length<6)return showPopup('Error','Minimal 6 karakter');
+      try{
+        const credential=EmailAuthProvider.credential(currentUser.email,oldPass);
+        await reauthenticateWithCredential(currentUser,credential);
+        await updatePassword(currentUser,newPass);
+        showPopup('Sukses','Password berhasil diubah');
+        showPage('profilePage');
+      }catch(e){showPopup('Gagal','Password lama salah');}
+    };
 
-    function loadNotifications() { if(!currentUser)return;onSnapshot(query(collection(db,"notifications"),orderBy("createdAt","desc")),snap=>{document.getElementById('notifList').innerHTML=snap.docs.filter(d=>d.data().targetUserId===null||d.data().targetUserId===currentUser.uid).map(d=>`<div class="card"><b>${d.data().title}</b><br>${d.data().body}</div>`).join('')||'<p>Tidak ada notifikasi</p>';}); }
+    function loadNotifications() {
+      if(!currentUser)return;
+      onSnapshot(query(collection(db,"notifications"),orderBy("createdAt","desc")),snap=>{
+        document.getElementById('notifList').innerHTML=snap.docs.filter(d=>d.data().targetUserId===null||d.data().targetUserId===currentUser.uid).map(d=>`<div class="card"><b>${d.data().title}</b><br>${d.data().body}</div>`).join('')||'<p>Tidak ada notifikasi</p>';
+      });
+    }
 
-    window.adminTab = (tab) => { document.querySelectorAll('#adminPage .tab').forEach(t=>t.classList.remove('active'));event.target.classList.add('active');if(tab==='announce'){document.getElementById('adminContent').innerHTML=`<input id="annTitle" class="input" placeholder="Judul"><textarea id="annBody" class="input" rows="3" placeholder="Isi"></textarea><button class="btn btn-sm btn-primary" onclick="addAnnouncement()">Kirim</button>`;}else if(tab==='notif'){document.getElementById('adminContent').innerHTML=`<input id="notifTitle" class="input" placeholder="Judul"><textarea id="notifBody" class="input" rows="3" placeholder="Isi"></textarea><select id="notifTarget" class="input"><option value="">Semua</option></select><button class="btn btn-sm btn-primary" onclick="sendNotif()">Kirim</button>`;getDocs(collection(db,"users")).then(s=>{document.getElementById('notifTarget').innerHTML+=s.docs.map(d=>`<option value="${d.id}">${d.data().username}</option>`).join('');});}else{onSnapshot(collection(db,"users"),snap=>{document.getElementById('adminContent').innerHTML=snap.docs.map(d=>{const u=d.data();return`<div class="card row"><div><b>${u.username}</b><br><small>${u.email}</small></div><button class="btn btn-sm ${u.banned?'btn-outline':'btn-danger'}" onclick="toggleBan('${d.id}',${u.banned})">${u.banned?'Unban':'Ban'}</button></div>`}).join('');});}};
-    window.addAnnouncement = async () => { const t=document.getElementById('annTitle').value.trim(),b=document.getElementById('annBody').value.trim();if(!t||!b)return;await addDoc(collection(db,"announcements"),{title:t,body:b,createdAt:serverTimestamp()});showPopup('Sukses','Dikirim'); };
-    window.sendNotif = async () => { const t=document.getElementById('notifTitle').value.trim(),b=document.getElementById('notifBody').value.trim(),target=document.getElementById('notifTarget').value||null;if(!t||!b)return;await addDoc(collection(db,"notifications"),{title:t,body:b,targetUserId:target,createdAt:serverTimestamp()});showPopup('Sukses','Dikirim'); };
+    // FIX: adminTab sekarang terima parameter (tab, el) bukan pakai event global
+    window.adminTab = (tab, el) => {
+      document.querySelectorAll('#adminPage .tab').forEach(t=>t.classList.remove('active'));
+      if(el) el.classList.add('active');
+      if(tab==='announce'){
+        document.getElementById('adminContent').innerHTML=`<input id="annTitle" class="input" placeholder="Judul"><textarea id="annBody" class="input" rows="3" placeholder="Isi"></textarea><button class="btn btn-sm btn-primary" onclick="addAnnouncement()">Kirim</button>`;
+      } else if(tab==='notif'){
+        document.getElementById('adminContent').innerHTML=`<input id="notifTitle" class="input" placeholder="Judul"><textarea id="notifBody" class="input" rows="3" placeholder="Isi"></textarea><select id="notifTarget" class="input"><option value="">Semua</option></select><button class="btn btn-sm btn-primary" onclick="sendNotif()">Kirim</button>`;
+        getDocs(collection(db,"users")).then(s=>{document.getElementById('notifTarget').innerHTML+=s.docs.map(d=>`<option value="${d.id}">${d.data().username}</option>`).join('');});
+      } else {
+        onSnapshot(collection(db,"users"),snap=>{
+          document.getElementById('adminContent').innerHTML=snap.docs.map(d=>{
+            const u=d.data();
+            return`<div class="card row"><div><b>${u.username}</b><br><small>${u.email}</small></div><button class="btn btn-sm ${u.banned?'btn-outline':'btn-danger'}" onclick="toggleBan('${d.id}',${u.banned})">${u.banned?'Unban':'Ban'}</button></div>`;
+          }).join('');
+        });
+      }
+    };
+    window.addAnnouncement = async () => { const t=document.getElementById('annTitle').value.trim(),b=document.getElementById('annBody').value.trim();if(!t||!b)return;await addDoc(collection(db,"announcements"),{title:t,body:b,createdAt:serverTimestamp()});showPopup('Sukses','Pengumuman dikirim'); };
+    window.sendNotif = async () => { const t=document.getElementById('notifTitle').value.trim(),b=document.getElementById('notifBody').value.trim(),target=document.getElementById('notifTarget').value||null;if(!t||!b)return;await addDoc(collection(db,"notifications"),{title:t,body:b,targetUserId:target,createdAt:serverTimestamp()});showPopup('Sukses','Notifikasi dikirim'); };
     window.toggleBan = async (uid,banned) => { await updateDoc(doc(db,"users",uid),{banned:!banned}); };
 
-    function showPopup(title,message) { const overlay=document.createElement('div');overlay.className='popup-overlay';overlay.innerHTML=`<div class="popup"><h3>${title}</h3><div style="max-height:300px;overflow-y:auto;margin:10px 0">${message}</div><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div>`;document.body.appendChild(overlay);overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.remove();}); }
+    function showPopup(title,message) {
+      const overlay=document.createElement('div');
+      overlay.className='popup-overlay';
+      overlay.innerHTML=`<div class="popup"><h3>${title}</h3><div style="max-height:300px;overflow-y:auto;margin:10px 0">${message}</div><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div>`;
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click',(e)=>{if(e.target===overlay)overlay.remove();});
+    }
     window.showPopup = showPopup;
-    window.sendMessage = async () => { const input=document.getElementById('chatInput');if(!input.value.trim()||!currentGroupId)return;await addDoc(collection(db,"groups",currentGroupId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),isSystem:false,timestamp:serverTimestamp()});input.value=''; };
-    window.sendImageUrl = async () => { const url=prompt('URL Gambar:');if(!url||!currentGroupId)return;await addDoc(collection(db,"groups",currentGroupId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,isSystem:false,timestamp:serverTimestamp()}); };
 
-    window.showBlockedUsers = async () => { const u=await getDoc(doc(db,"users",currentUser.uid));const bl=u.data().blockedUsers||[];let ns=await Promise.all(bl.map(async uid=>{const uu=await getDoc(doc(db,"users",uid));return uu.exists()?uu.data().username:uid;}));const ov=document.createElement('div');ov.className='popup-overlay';ov.innerHTML=`<div class="popup"><h3>Diblokir</h3><div>${ns.map((n,i)=>`<div class="row" style="justify-content:space-between"><span>${n}</span><button class="btn btn-sm btn-danger" onclick="unblockUser('${bl[i]}')">Buka</button></div>`).join('')||'Tidak ada'}</div><button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="blockUserPrompt()">Blokir</button><div class="popup-buttons"><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div></div>`;document.body.appendChild(ov);ov.addEventListener('click',(e)=>{if(e.target===ov)ov.remove();}); };
-    window.blockUserPrompt = async () => { const un=prompt('Username:');if(!un)return;const s=await getDocs(query(collection(db,"users"),where("username","==",un)));if(s.empty)return showPopup('Error','Tidak ditemukan');await updateDoc(doc(db,"users",currentUser.uid),{blockedUsers:arrayUnion(s.docs[0].id)});document.querySelector('.popup-overlay')?.remove();window.showBlockedUsers(); };
-    window.unblockUser = async (uid) => { await updateDoc(doc(db,"users",currentUser.uid),{blockedUsers:arrayRemove(uid)});document.querySelector('.popup-overlay')?.remove();window.showBlockedUsers(); };
+    window.sendMessage = async () => {
+      const input=document.getElementById('chatInput');
+      if(!input.value.trim()||!currentGroupId)return;
+      await addDoc(collection(db,"groups",currentGroupId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:input.value.trim(),isSystem:false,timestamp:serverTimestamp()});
+      input.value='';
+    };
+    window.sendImageUrl = async () => {
+      const url=prompt('URL Gambar:');
+      if(!url||!currentGroupId)return;
+      await addDoc(collection(db,"groups",currentGroupId,"messages"),{senderId:currentUser.uid,senderUsername:currentUserModel?.username||'User',text:'Mengirim gambar',imageUrl:url,isSystem:false,timestamp:serverTimestamp()});
+    };
+
+    window.showBlockedUsers = async () => {
+      const u=await getDoc(doc(db,"users",currentUser.uid));
+      const bl=u.data().blockedUsers||[];
+      let ns=await Promise.all(bl.map(async uid=>{const uu=await getDoc(doc(db,"users",uid));return uu.exists()?uu.data().username:uid;}));
+      const ov=document.createElement('div');
+      ov.className='popup-overlay';
+      ov.innerHTML=`<div class="popup"><h3>Diblokir</h3><div>${ns.map((n,i)=>`<div class="row" style="justify-content:space-between"><span>${n}</span><button class="btn btn-sm btn-danger" onclick="unblockUser('${bl[i]}')">Buka Blokir</button></div>`).join('')||'Tidak ada yang diblokir'}</div><button class="btn btn-sm btn-outline" style="margin-top:10px" onclick="blockUserPrompt()">Blokir Pengguna</button><div class="popup-buttons"><button class="btn btn-sm btn-primary" onclick="this.closest('.popup-overlay').remove()">Tutup</button></div></div>`;
+      document.body.appendChild(ov);
+      ov.addEventListener('click',(e)=>{if(e.target===ov)ov.remove();});
+    };
+    window.blockUserPrompt = async () => {
+      const un=prompt('Username:');if(!un)return;
+      const s=await getDocs(query(collection(db,"users"),where("username","==",un)));
+      if(s.empty)return showPopup('Error','Tidak ditemukan');
+      await updateDoc(doc(db,"users",currentUser.uid),{blockedUsers:arrayUnion(s.docs[0].id)});
+      document.querySelector('.popup-overlay')?.remove();
+      window.showBlockedUsers();
+    };
+    window.unblockUser = async (uid) => {
+      await updateDoc(doc(db,"users",currentUser.uid),{blockedUsers:arrayRemove(uid)});
+      document.querySelector('.popup-overlay')?.remove();
+      window.showBlockedUsers();
+    };
   </script>
 </body>
 </html>
